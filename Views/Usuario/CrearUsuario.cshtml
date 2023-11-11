@@ -1,0 +1,12 @@
+@model Usuario
+
+
+<form asp-controller="Usuario" asp-action="CrearUsuario">
+  <div class="form-group">
+    <label asp-for="@Model.NombreUsuario"></label>
+    <input asp-for="@Model.NombreUsuario" class="form-control" />
+  </div>
+
+
+  <button type="submit" class="btn btn-primary">Enviar</button>
+</form>

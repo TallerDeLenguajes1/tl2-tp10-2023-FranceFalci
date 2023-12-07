@@ -93,4 +93,31 @@ public class UsuarioRepository : IUsuarioRepository
     connection.Close();
     }
   }
+
+  public  Usuario? validarUsuario(Usuario usuarioAvalidar){
+    SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
+    var usuario = new Usuario();
+    SQLiteCommand command = connection.CreateCommand();
+    command.CommandText = "SELECT * FROM usuario WHERE nombre_de_usuario= @nombreUsuario AND contrasenia= @contrasenia";
+    command.Parameters.Add(new SQLiteParameter("@nombreUsuario", usuarioAvalidar.NombreUsuario));
+    command.Parameters.Add(new SQLiteParameter("@contrasenia", usuarioAvalidar.Contrasenia));
+
+    connection.Open();
+
+    using (SQLiteDataReader reader = command.ExecuteReader())
+    {
+      if (reader.Read())
+      {
+        // Se encontró una coincidencia
+        usuario.Id = Convert.ToInt32(reader["id_usuario"]);
+        usuario.NombreUsuario = reader["nombre_de_usuario"].ToString();
+        usuario.Contrasenia = reader["contrasenia"].ToString();
+        usuario.Rol = (rol)Convert.ToInt32(reader["rol"]); 
+        return usuario;
+      }
+     
+    };
+      return null;
+  }
+
 }

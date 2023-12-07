@@ -7,4 +7,6 @@ public interface IUsuarioRepository
   public void Create(Usuario usuario);
   public void Remove(int id);
   public void Update(Usuario usuario);
+
+  public Usuario? validarUsuario (Usuario usuario);
 }

@@ -30,7 +30,7 @@ public class TareaRepository : ITareaRepository{
 
       connection.Open();
       SQLiteCommand command = connection.CreateCommand();
-      command.CommandText = $"UPDATE tarea SET nombre=@nombre, estado = @estado, descripcion =@descripcion , color = @color  WHERE id_tarea= @idTarea;";
+      command.CommandText = $"UPDATE tarea SET nombre=@nombre, estado = @estado, descripcion =@descripcion  WHERE id_tarea= @idTarea;";
 
       command.Parameters.Add(new SQLiteParameter("@idTarea", idTarea));
       command.Parameters.Add(new SQLiteParameter("@nombre", tarea.Nombre));
@@ -58,8 +58,9 @@ public class TareaRepository : ITareaRepository{
       {
         tarea.Id = Convert.ToInt32(reader["id_tarea"]);
         tarea.IdTablero = Convert.ToInt32(reader["id_tablero"]);
-        tarea.IdUsuarioPropietario = Convert.ToInt32(reader["id_usuario_asignado"]);
-        tarea.Nombre = reader["nombre"].ToString();
+        tarea.IdUsuarioPropietario = reader["id_usuario_asignado"] != DBNull.Value
+            ? Convert.ToInt32(reader["id_usuario_asignado"])
+            : 0; tarea.Nombre = reader["nombre"].ToString();
         tarea.Descripcion = reader["descripcion"].ToString();
         tarea.Color = reader["color"].ToString();
         tarea.Estado = (EstadoTarea)Convert.ToInt32(reader["estado"]);

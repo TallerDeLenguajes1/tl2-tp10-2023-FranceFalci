@@ -1,0 +1,52 @@
+@Model List<Tablero>
+
+  <h2>Tableros</h2>
+
+
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th hidden>ID</th>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var tablero in Model)
+      {
+        <tr>
+          <td hidden>@tablero.IdTablero</td>
+          <td>@tablero.Nombre</td>
+          <td>@tablero.Descripcion</td>
+          <td></td>
+          <td></td>
+
+
+         <td>
+            @* <a asp-controller="Tablero" asp-action="EditarTablero" asp-route-idTablero="@tablero.IdTablero">Editar</a>
+            <a asp-controller="Tablero" asp-action="EliminarTablero" asp-route-idTablero="@tablero.IdTablero"
+          onclick="return confirm('¿Estas seguro que quieres eliminar el tablero @tablero.Nombre ')">Eliminar</a>*@
+          <button type="button" class="btn btn-secondary ">
+              <a class="text-white text-decoration-none" asp-controller="Tablero" asp-action="EditarTablero"
+                asp-route-idUsuario="@tablero.IdTablero">Editar</a>
+          </button>
+
+          <button type="button" class="btn btn-danger">
+              <a class="text-white text-decoration-none" asp-controller="Tablero" asp-action="EliminarTablero"
+                asp-route-idUsuario="@tablero.IdTablero"
+                onclick="return confirm('¿Estas seguro que quieres eliminar tablero @tablero.Nombre  ')">
+              Eliminar</a>
+          </button>
+
+            <button type="button" class="btn btn-success">
+              <a class="text-white text-decoration-none"  asp-controller="Tarea" asp-action="GetTareasByIdTablero"
+                asp-route-idTablero="@tablero.IdTablero">Ver Tareas</a>
+          </button>
+          </td>
+
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <a asp-controller="Tablero" asp-action="CrearTablero" >AgregarTablero</a>

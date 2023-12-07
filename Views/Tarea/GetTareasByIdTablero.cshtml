@@ -1,0 +1,218 @@
+@model List<Tarea>
+
+@* <h2>Product List</h2> *@
+@{
+  // Obtén los datos sincrónicamente
+  var tasks = Model.Where(t => t.Estado == EstadoTarea.Ideas).ToList();
+  var toDoTasks = Model.Where(t => t.Estado == EstadoTarea.ToDo).ToList();
+  var doingTasks = Model.Where(t => t.Estado == EstadoTarea.Doing).ToList();
+  var reviewTasks = Model.Where(t => t.Estado == EstadoTarea.Review).ToList();
+  var doneTasks = Model.Where(t => t.Estado == EstadoTarea.Done).ToList();
+}
+
+<table class="table  text-center" >
+  <thead>
+    <tr>
+      <th style="border-right: 1px solid #ddd;">Ideas</th>
+      <th style="border-right: 1px solid #ddd;">ToDo</th>
+      <th style="border-right: 1px solid #ddd;">Doing</th>
+      <th style="border-right: 1px solid #ddd;">Review</th>
+      <th>Done</th>
+
+
+    </tr>
+  </thead>
+  <tbody>
+
+    <td>
+      @foreach (var task in tasks)
+      {
+    
+
+          var colorClass = GetColorClass(task.Estado);
+
+          <div class="card @colorClass mb-4 text-white " style="max-width: 14rem; margin-left:1rem;">
+
+            <div class="card-header fw-bold">@task.Nombre</div>
+            <div class="card-body">
+              <p class="card-text">@task.Descripcion
+              </p>
+              <button class="btn btn-dark">
+              <a class="text-light text-decoration-none"  asp-controller="Tarea" asp-action="EditarTarea"
+                asp-route-idTarea="@task.Id">Editar</a>
+              </button>
+            <button class="btn btn-danger">
+
+              <a class="text-white text-decoration-none"  asp-controller="Tarea" asp-action="DeleteTarea"
+                asp-route-idTarea="@task.Id"
+                onclick="return confirm('¿Estas seguro que quieres eliminar el elemento?')">Eliminar</a>
+            </button>
+
+            </div>
+          </div>
+        }
+    </td>
+    <td>
+      @foreach (var task in toDoTasks)
+      {
+        var colorClass = GetColorClass(task.Estado);
+
+        <div class="card @colorClass mb-4 text-white " style="max-width: 14rem; margin-left:1rem;">
+
+          <div class="card-header fw-bold">@task.Nombre</div>
+          <div class="card-body">
+            <p class="card-text">@task.Descripcion
+            </p>
+            <button class="btn  btn-dark">
+              <a class="text-light text-decoration-none" asp-controller="Tarea" asp-action="EditarTarea"
+                asp-route-idTarea="@task.Id">Editar</a>
+            </button>
+            <button class="btn btn-danger">
+
+              <a class="text-light text-decoration-none" asp-controller="Tarea" asp-action="DeleteTarea"
+                asp-route-idTarea="@task.Id"
+                onclick="return confirm('¿Estas seguro que quieres eliminar el elemento?')">Eliminar</a>
+            </button>
+          </div>
+        </div>
+      }
+    </td>
+    <td>
+      @foreach (var task in doingTasks)
+      {
+        var colorClass = GetColorClass(task.Estado);
+
+        <div class="card @colorClass mb-4 text-white " style="max-width: 14rem; margin-left:1rem;">
+
+          <div class="card-header fw-bold">@task.Nombre</div>
+          <div class="card-body">
+            <p class="card-text">@task.Descripcion
+            </p>
+            <button class="btn  btn-dark">
+              <a class="text-light text-decoration-none" asp-controller="Tarea" asp-action="EditarTarea"
+                asp-route-idTarea="@task.Id">Editar</a>
+            </button>
+            <button class="btn btn-danger">
+
+              <a class="text-light text-decoration-none" asp-controller="Tarea" asp-action="DeleteTarea"
+                asp-route-idTarea="@task.Id"
+                onclick="return confirm('¿Estas seguro que quieres eliminar el elemento?')">Eliminar</a>
+            </button>
+          </div>
+        </div>
+      }
+    </td>
+    <td>
+      @foreach (var task in reviewTasks)
+      {
+        var colorClass = GetColorClass(task.Estado);
+
+        <div class="card @colorClass mb-4 text-white " style="max-width: 14rem; margin-left:1rem;">
+
+          <div class="card-header fw-bold">@task.Nombre</div>
+          <div class="card-body">
+            <p class="card-text">@task.Descripcion
+            </p>
+            <button class="btn  btn-dark">
+              <a class="text-light text-decoration-none" asp-controller="Tarea" asp-action="EditarTarea"
+                asp-route-idTarea="@task.Id">Editar</a>
+            </button>
+            <button class="btn btn-danger">
+
+              <a class="text-light text-decoration-none" asp-controller="Tarea" asp-action="DeleteTarea"
+                asp-route-idTarea="@task.Id"
+                onclick="return confirm('¿Estas seguro que quieres eliminar el elemento?')">Eliminar</a>
+            </button>
+          </div>
+        </div>
+      }
+    </td>
+    <td>
+      @foreach (var task in doneTasks)
+      {
+        var colorClass = GetColorClass(task.Estado);
+
+        <div class="card @colorClass mb-4 text-white " style="max-width: 14rem; margin-left:1rem;">
+
+          <div class="card-header fw-bold">@task.Nombre</div>
+          <div class="card-body">
+            <p class="card-text">@task.Descripcion
+            </p>
+            <button class="btn  btn-dark">
+              <a class="text-light text-decoration-none"  asp-controller="Tarea" asp-action="EditarTarea"
+                asp-route-idTarea="@task.Id">Editar</a>
+              </button>
+            <button class="btn btn-danger">
+
+              <a class="text-light text-decoration-none" asp-controller="Tarea" asp-action="DeleteTarea" asp-route-idTarea="@task.Id"
+                onclick="return confirm('¿Estas seguro que quieres eliminar el elemento?')">Eliminar</a>
+            </button>
+          </div>
+        </div>
+      }
+    </td>
+
+
+  </tbody>
+</table>
+
+<a asp-controller="Tarea" asp-action="CrearTareaForm">Agregar Tarea</a>
+
+@* @foreach (var tarea in Model){
+
+  var colorClass = GetColorClass(tarea.Estado);
+
+  <div class="card @colorClass mb-4 text-white " style="max-width: 14rem; margin-left:1rem;">
+
+      <div class="card-header fw-bold">@tarea.Nombre</div>
+  <div class="card-body">
+      <p class="card-text">@tarea.Descripcion
+    </p>
+      <a asp-controller="Tarea" asp-action="EditarTarea" asp-route-idTarea="@tarea.Id">Editar</a>
+      <a asp-controller="Tarea" asp-action="DeleteTarea" asp-route-idTarea="@tarea.Id"
+        onclick="return confirm('¿Estas seguro que quieres eliminar el elemento?')">Eliminar</a>
+  </div>
+</div>
+void RenderTareaCard(Tarea tarea)
+{
+var colorClass = GetColorClass(tarea.Estado);
+
+<div class="card @colorClass mb-4 text-white " style="max-width: 14rem; margin-left:1rem;">
+<div class="card-header fw-bold">@tarea.Nombre</div>
+<div class="card-body">
+<p class="card-text">@tarea.Descripcion</p>
+<a asp-controller="Tarea" asp-action="EditarTarea" asp-route-idTarea="@tarea.Id">Editar</a>
+<a asp-controller="Tarea" asp-action="DeleteTarea" asp-route-idTarea="@tarea.Id"
+onclick="return confirm('¿Estas seguro que quieres eliminar el elemento?')">Eliminar</a>
+</div>
+</div>
+}
+  } *@
+
+
+
+@functions {
+  
+
+  
+  string GetColorClass(EstadoTarea estado)
+  {
+    switch (estado)
+    {
+      case EstadoTarea.Ideas:
+        return "bg-danger";
+      case EstadoTarea.ToDo:
+        return "bg-secondary";
+      case EstadoTarea.Doing:
+        return "bg-warning";
+      case EstadoTarea.Review:
+        return "bg-success";
+      case EstadoTarea.Done:
+        return "bg-info";
+      default:
+        return ""; 
+    }
+  }
+}
+
+

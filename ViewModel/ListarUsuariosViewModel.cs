@@ -12,8 +12,11 @@ namespace tl2_tp10_2023_FranceFalci;
       usuariosViewModel.Add(new IndexUsuarioViewModel
       {
         NombreUsuario = usuario.NombreUsuario,
+        Id = usuario.Id,
+        Rol = usuario.Rol
       });
     }
+
     return usuariosViewModel;
     }
 }

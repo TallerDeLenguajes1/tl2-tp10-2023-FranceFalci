@@ -1,26 +1,42 @@
-@model Tarea
+@model CrearTareaViewModel
  
 
 <form asp-controller="Tarea" asp-action="CrearTarea" >
+  <input hidden asp-for="@Model.IdTablero">
+
   <div class="form-group">
     <label asp-for="@Model.Nombre"></label>
     <input asp-for="@Model.Nombre" class="form-control" />
+    <span asp-validation-for="@Model.Nombre" class="text-danger"></span>
+
   </div>
   <div class="form-group">
     <label asp-for="@Model.Descripcion"></label>
     <input asp-for="@Model.Descripcion" class="form-control" />
+    <span asp-validation-for="@Model.Descripcion" class="text-danger"></span>
+
   </div>
   <div class="form-group">
     <label asp-for="@Model.Estado"></label>
     <select asp-for="@Model.Estado" class="form-control">
+      @foreach (var estado in Enum.GetValues(typeof(EstadoTarea)))
+      {
+        <option value="@estado">@estado</option>
+      }
+    </select>
+    @* <select asp-for="@Model.Estado" class="form-control">
       <option value="Ideas">Ideas</option>
       <option value="ToDo">ToDo</option>
       <option value="Doing">Doing</option>
       <option value="Review">Review</option>
       <option value="Done">Done</option>
-    </select>
+    </select> *@
   </div>
 
 
   <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
+
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+}

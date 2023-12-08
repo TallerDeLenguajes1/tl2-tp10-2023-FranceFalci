@@ -23,12 +23,10 @@
 
 
          <td>
-            @* <a asp-controller="Tablero" asp-action="EditarTablero" asp-route-idTablero="@tablero.IdTablero">Editar</a>
-            <a asp-controller="Tablero" asp-action="EliminarTablero" asp-route-idTablero="@tablero.IdTablero"
-          onclick="return confirm('¿Estas seguro que quieres eliminar el tablero @tablero.Nombre ')">Eliminar</a>*@
+          
           <button type="button" class="btn btn-secondary ">
               <a class="text-white text-decoration-none" asp-controller="Tablero" asp-action="EditarTablero"
-                asp-route-idUsuario="@tablero.IdTablero">Editar</a>
+                asp-route-idTablero="@tablero.IdTablero">Editar</a>
           </button>
 
           <button type="button" class="btn btn-danger">

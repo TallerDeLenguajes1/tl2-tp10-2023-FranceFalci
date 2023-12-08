@@ -28,6 +28,8 @@ public class TableroController : Controller
     }
 
     if(isOperador()){
+      Console.WriteLine("Rol: Operador");
+
       int idUsuario = HttpContext.Session.GetInt32("ID") ?? -1;
       var tableros = tableroRepository.GetTableroByIdUsuario(idUsuario);
       return View(tableros);
@@ -40,14 +42,18 @@ public class TableroController : Controller
   [HttpGet]
   public IActionResult CrearTablero()
   {
+    // Debug.WriteLine("id Usuario : {idUsuario}");
     if (!isLogueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-    return View(new Tablero());
+    return View(new CrearTableroViewModel());
   }
 
   [HttpPost]
-  public IActionResult CrearTablero(Tablero tablero)
+  public IActionResult CrearTablero(CrearTableroViewModel tableroCreadoVM)
   {
     if (!isLogueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+    if (!ModelState.IsValid) return RedirectToAction("CrearUsuario");
+    var tablero = new Tablero(tableroCreadoVM);
+    tablero.IdUsuario = (int)HttpContext.Session.GetInt32("ID");
     tableroRepository.Create(tablero);
     return RedirectToAction("GetTableros");
   }
@@ -56,18 +62,17 @@ public class TableroController : Controller
   public IActionResult EditarTablero(int idTablero)
   {
     if (!isLogueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-    var tableroBuscado = tableroRepository.GetTableroById(idTablero);
-    return View(tableroBuscado);
+    var tableroAEditar = tableroRepository.GetTableroById(idTablero);
+    return View(new EditarTableroViewModel(tableroAEditar));
   }
 
   [HttpPost]
-  public IActionResult EditarTablero(Tablero tablero)
+  public IActionResult EditarTablero(EditarTableroViewModel tableroEditadoVM)
   {
     if (!isLogueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+    if (!ModelState.IsValid) return RedirectToAction("EditarTablero", new { idTablero = tableroEditadoVM.IdTablero });
 
-    var tableroAModificar = tableroRepository.GetTableroById(tablero.IdTablero);
-    tableroAModificar.Descripcion = tablero.Descripcion;
-    tableroAModificar.Nombre = tablero.Nombre;
+    var tableroAModificar = new Tablero(tableroEditadoVM);
     tableroRepository.Update(tableroAModificar, tableroAModificar.IdTablero);
     return RedirectToAction("GetTableros");
   }
@@ -81,20 +86,21 @@ public class TableroController : Controller
 
   private bool isAdmin()
   {
-    if (HttpContext.Session != null && HttpContext.Session.GetInt32("NivelAcceso") == 1)
+    Console.WriteLine(HttpContext.Session.GetInt32("NivelAcceso"));
+    if (HttpContext.Session != null && HttpContext.Session.GetInt32("NivelAcceso") == 2)
       return true;
 
     return false;
   }
   private bool isOperador()
   {
-    if (HttpContext.Session != null && HttpContext.Session.GetInt32("NivelAcceso") == 0)
+    if (HttpContext.Session != null && HttpContext.Session.GetInt32("NivelAcceso") == 1)
       return true;
 
     return false;
   }
   private bool isLogueado(){
-    if (HttpContext.Session != null && (HttpContext.Session.GetInt32("NivelAcceso") == 1 || HttpContext.Session.GetInt32("NivelAcceso") == 0))
+    if (HttpContext.Session != null && (HttpContext.Session.GetInt32("NivelAcceso") == 1 || HttpContext.Session.GetInt32("NivelAcceso") == 2))
       return true;
 
     return false;

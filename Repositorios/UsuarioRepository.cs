@@ -22,6 +22,7 @@ public class UsuarioRepository : IUsuarioRepository
           var usuario = new Usuario();
           usuario.Id = Convert.ToInt32(reader["id_usuario"]);
           usuario.NombreUsuario = reader["nombre_de_usuario"].ToString();
+          usuario.Rol = (rol)Convert.ToInt32(reader["rol"]);
           usuarios.Add(usuario);
         }
       }
@@ -43,6 +44,8 @@ public class UsuarioRepository : IUsuarioRepository
       {
         usuario.Id = Convert.ToInt32(reader["id_usuario"]);
         usuario.NombreUsuario = reader["nombre_de_usuario"].ToString();
+        usuario.Rol = (rol)Convert.ToInt32(reader["rol"]);
+
       }
     }
     connection.Close();
@@ -50,7 +53,7 @@ public class UsuarioRepository : IUsuarioRepository
     return (usuario);
   }
   public void Create(Usuario usuario){
-    var query = $"INSERT INTO usuario (nombre_de_usuario) VALUES (@nombre_de_usuario)";
+    var query = $"INSERT INTO usuario (nombre_de_usuario,rol) VALUES (@nombre_de_usuario , @rol)";
     using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
     {
 
@@ -58,6 +61,8 @@ public class UsuarioRepository : IUsuarioRepository
       var command = new SQLiteCommand(query, connection);
 
       command.Parameters.Add(new SQLiteParameter("@nombre_de_usuario", usuario.NombreUsuario));
+      command.Parameters.Add(new SQLiteParameter("@rol", usuario.Rol));
+
 
       command.ExecuteNonQuery();
 
@@ -71,12 +76,14 @@ public class UsuarioRepository : IUsuarioRepository
 
     connection.Open();
     SQLiteCommand command = connection.CreateCommand();
-    command.CommandText = $"UPDATE Usuario SET nombre_de_usuario=@nombre  WHERE id_usuario= @idUsuario;";
+    command.CommandText = $"UPDATE Usuario SET nombre_de_usuario=@nombre , rol = @rol  WHERE id_usuario= @idUsuario;";
     command.Parameters.Add(new SQLiteParameter("@idUsuario", usuario.Id));
     command.Parameters.Add(new SQLiteParameter("@nombre", usuario.NombreUsuario));
+      command.Parameters.Add(new SQLiteParameter("@rol", usuario.Rol));
 
 
-    command.ExecuteNonQuery();
+
+      command.ExecuteNonQuery();
     connection.Close();
    }
   }
@@ -108,7 +115,6 @@ public class UsuarioRepository : IUsuarioRepository
     {
       if (reader.Read())
       {
-        // Se encontró una coincidencia
         usuario.Id = Convert.ToInt32(reader["id_usuario"]);
         usuario.NombreUsuario = reader["nombre_de_usuario"].ToString();
         usuario.Contrasenia = reader["contrasenia"].ToString();

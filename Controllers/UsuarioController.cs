@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using tl2_tp10_2023_FranceFalci.Models;
 namespace tl2_tp10_2023_FranceFalci.Controllers;
+using tl2_tp10_2023_FranceFalci;
 
 public class UsuarioController : Controller
 {
@@ -20,18 +20,24 @@ public class UsuarioController : Controller
   [HttpGet]
   public IActionResult GetUsuarios()
   {
+    // if (String.IsNullOrEmpty(HttpContext.Session.GetString("usuario"))) return RedirectToRoute(new { controller = "Logueo", action = "Index" });
+    // if (HttpContext.Session.GetString("rol") != Rol.Administrador.ToString()) return RedirectToRoute(new { controller = "Logueo", action = "Index" });
+  // var vista = new ListarUsuariosViewModel();
     var usuarios = usuarioRepository.GetAll();
-    return View(usuarios);
+    return View(new ListarUsuariosViewModel().GetIndexUsuariosViewModel(usuarios));
   }
   [HttpGet]
   public IActionResult CrearUsuario()
   {
-    return View(new Usuario());
+    return View(new CrearUsuarioViewModel());
   }
 
   [HttpPost]
-  public IActionResult CrearUsuario(Usuario usuario)
+  public IActionResult CrearUsuario(CrearUsuarioViewModel usuarioCreadoVM)
   {
+    if (!ModelState.IsValid) return RedirectToAction("CrearUsuario");
+
+    var usuario = new Usuario(usuarioCreadoVM);
     usuarioRepository.Create(usuario);
     return RedirectToAction("GetUsuarios");
   }
@@ -41,19 +47,20 @@ public class UsuarioController : Controller
   public IActionResult EditarUsuario(int idUsuario)
   {
     var usuarioBuscado = usuarioRepository.GetById(idUsuario);
-    return View(usuarioBuscado);
+    return View(new EditarUsuarioViewModel(usuarioBuscado));
   }
 
 
   [HttpPost]
-  public IActionResult EditarUsuario(Usuario usuario)
+  public IActionResult EditarUsuario(EditarUsuarioViewModel usuarioEditadoVM)
   {
-    var usuarioAModificar = usuarioRepository.GetById(usuario.Id);
-    usuarioAModificar.NombreUsuario = usuario.NombreUsuario;
-    usuarioRepository.Update(usuarioAModificar);
+    if (!ModelState.IsValid) return RedirectToAction("EditarUsuario", new { idUsuario = usuarioEditadoVM.Id });
+
+    var usuario = new Usuario(usuarioEditadoVM);
+    usuarioRepository.Update(usuario);
 
     return RedirectToAction("GetUsuarios");
- 
+
   }
 
   // ! [HttpDelete] porq?? 

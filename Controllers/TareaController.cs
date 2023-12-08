@@ -27,46 +27,49 @@ public class TareaController : Controller
   [HttpGet]
   public IActionResult GetTareasByIdTablero(int idTablero)
   {
-    TempData["IdTablero"] = idTablero;
+    // TempData["IdTablero"] = idTablero;
 
     var tareas = tareaRepository.GetTareasPorTablero(idTablero);
-    return View(tareas);
+    return View( new ListarTareasViewModel().GetIndexTareaViewModel(tareas));
   }
 
   [HttpGet]
-  public IActionResult CrearTareaForm()
+  public IActionResult CrearTareaForm(int idTablero)
   {
-    return View(new Tarea());
+    return View(new CrearTareaViewModel(idTablero));
   }
 
   [HttpPost]
-  public IActionResult CrearTarea(Tarea tarea)
+  public IActionResult CrearTarea(CrearTareaViewModel tareaCreadaVM)
   {
-    var idTablero = TempData["IdTablero"] as int? ?? 0; 
-
-    tareaRepository.Create(tarea, idTablero);
-    return RedirectToAction("GetTareasByIdTablero", new { idTablero = idTablero });
+    // var idTablero = TempData["IdTablero"] as int? ?? 0; 
+    var tarea = new Tarea(tareaCreadaVM);
+    if (!ModelState.IsValid) return RedirectToAction("CrearTarea");
+    tareaRepository.Create(tarea, tarea.IdTablero);
+    return RedirectToAction("GetTareasByIdTablero", new { idTablero = tarea.IdTablero });
   }
 
-  [HttpPost]
-  public IActionResult EditarTarea(Tarea tarea)
-  {
-    var tareaAModificar = tareaRepository.GetTareaById(tarea.Id);
-    tareaAModificar.Descripcion = tarea.Descripcion;
-    tareaAModificar.Nombre = tarea.Nombre;
-    tareaAModificar.Estado = tarea.Estado;
-    tareaRepository.Update(tareaAModificar, tareaAModificar.Id);
-    return RedirectToAction("GetTareasByIdTablero", new { idTablero = tareaAModificar.IdTablero });
-    // return RedirectToAction("GetTareas");
 
-  }
 
   [HttpGet]
   public IActionResult EditarTarea(int idTarea)
   {
+
     var tareaBuscado = tareaRepository.GetTareaById(idTarea);
-    return View(tareaBuscado);
+    return View(new EditarTareaViewModel(tareaBuscado));
   }
+
+  [HttpPost]
+  public IActionResult EditarTarea(EditarTareaViewModel tareaEditadaVM)
+  {
+    if (!ModelState.IsValid) return RedirectToAction("EditarTarea");
+    var tareaAModificar = new Tarea(tareaEditadaVM);
+    Debug.WriteLine("{tareaAModificar.IdTablero}");
+    tareaRepository.Update(tareaAModificar, tareaAModificar.Id);
+    return RedirectToAction("GetTareasByIdTablero", new { idTablero = tareaAModificar.IdTablero });
+
+  }
+
 
   public IActionResult DeleteTarea(int idTarea)
   {

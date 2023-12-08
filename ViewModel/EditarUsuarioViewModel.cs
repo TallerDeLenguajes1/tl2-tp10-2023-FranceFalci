@@ -1,7 +1,7 @@
 namespace tl2_tp10_2023_FranceFalci;
 using System.ComponentModel.DataAnnotations;
 
-public class CrearUsuarioViewModel
+public class EditarUsuarioViewModel
 {
   public int Id { get; set; }
   [Required(ErrorMessage = "Este campo es requerido")]
@@ -11,16 +11,12 @@ public class CrearUsuarioViewModel
   [Required(ErrorMessage = "Este campo es requerido")]
   public rol Rol { get; set; }
 
-  [Display(Name = "Contraseña")]
-  [MinLength(6, ErrorMessage = "Como minimo 6 caracteres")]
-  public string Contrasenia { get ; set; }
-
-  public CrearUsuarioViewModel() { }
-  public CrearUsuarioViewModel(Usuario usuario)
+  public EditarUsuarioViewModel(){}
+  public EditarUsuarioViewModel(Usuario usuario)
   {
     Id = usuario.Id;
     NombreUsuario = usuario.NombreUsuario;
-    Contrasenia = usuario.Contrasenia;
     Rol = usuario.Rol;
   }
 }
+

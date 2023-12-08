@@ -1,12 +1,34 @@
-@model Usuario
+@model CrearUsuarioViewModel
 
 
 <form asp-controller="Usuario" asp-action="CrearUsuario">
   <div class="form-group">
     <label asp-for="@Model.NombreUsuario"></label>
     <input asp-for="@Model.NombreUsuario" class="form-control" />
+    <span asp-validation-for="@Model.NombreUsuario" class="text-danger"></span>
+
   </div>
+
+  <div class="form-group">
+    <label asp-for="@Model.Contrasenia"></label>
+    <input asp-for="@Model.Contrasenia" class="form-control" />
+    <span asp-validation-for="@Model.Contrasenia" class="text-danger"></span>
+
+  </div>
+  <div class="form-group">
+    <label asp-for="@Model.Rol"></label>
+    <select asp-for="@Model.Rol" class="form-control">
+      @foreach (var rol in Enum.GetValues(typeof(rol)))
+      {
+        <option value="@rol">@rol</option>
+      }
+    </select>
+  </div>
+
 
 
   <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+}

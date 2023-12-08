@@ -5,14 +5,15 @@ namespace tl2_tp10_2023_FranceFalci.Controllers;
 
 public class TareaController : Controller
 {
-  private ITareaRepository tareaRepository;
+  // private ITareaRepository tareaRepository;
+  private readonly ITareaRepository tareaRepository;
 
   private readonly ILogger<HomeController> _logger;
 
-  public TareaController(ILogger<HomeController> logger)
+  public TareaController(ILogger<HomeController> logger,ITareaRepository tareaRepository)
   {
     _logger = logger;
-    tareaRepository = new TareaRepository();
+    this.tareaRepository = tareaRepository;
 
   }
   // GetTareasByIdTablero

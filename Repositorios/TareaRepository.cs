@@ -2,7 +2,14 @@ using System.Data.SQLite;
 namespace tl2_tp10_2023_FranceFalci;
 
 public class TareaRepository : ITareaRepository{
-  private string cadenaConexion = "Data Source=BD/kanban.db;Cache=Shared";
+  // private string cadenaConexion = "Data Source=BD/kanban.db;Cache=Shared";
+
+  private readonly string cadenaConexion;
+
+  public TareaRepository(string CadenaDeConexion)
+  {
+    cadenaConexion = CadenaDeConexion;
+  }
 
   public void Create(Tarea tarea, int idTablero){
     var query = $"INSERT INTO Tarea (id_tablero, nombre, estado,descripcion,color) VALUES (@idTablero, @nombre, @estado,@descripcion,@color)";

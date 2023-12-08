@@ -3,7 +3,13 @@ namespace tl2_tp10_2023_FranceFalci;
 
 public class TableroRepository : ITableroRepository {
 
-  private string cadenaConexion = "Data Source=BD/kanban.db;Cache=Shared";
+  // private string cadenaConexion = "Data Source=BD/kanban.db;Cache=Shared";
+  private readonly string cadenaConexion;
+
+  public TableroRepository(string CadenaDeConexion)
+  {
+    cadenaConexion = CadenaDeConexion;
+  }
 
   public void Create(Tablero tablero){
     var query = $"INSERT INTO Tablero (id_usuario_propietario, nombre,descripcion) VALUES ( @idUsuarioPropietario, @nombre,@descripcion)";

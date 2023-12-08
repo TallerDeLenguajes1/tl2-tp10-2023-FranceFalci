@@ -5,14 +5,14 @@ using tl2_tp10_2023_FranceFalci;
 
 public class UsuarioController : Controller
 {
-  private IUsuarioRepository usuarioRepository;
+  private readonly IUsuarioRepository  usuarioRepository;
 
   private readonly ILogger<HomeController> _logger;
 
-  public UsuarioController(ILogger<HomeController> logger)
+  public UsuarioController(ILogger<HomeController> logger,IUsuarioRepository usuarioRepository)
   {
     _logger = logger;
-    usuarioRepository = new UsuarioRepository();
+    this.usuarioRepository = usuarioRepository;
 
   }
 

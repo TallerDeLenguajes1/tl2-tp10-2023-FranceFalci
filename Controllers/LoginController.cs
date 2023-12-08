@@ -6,13 +6,13 @@ namespace tl2_tp10_2023_FranceFalci.Controllers;
 public class LoginController : Controller
 {
   // List<Usuario> Usuarios = new List<Usuario>();
-  private IUsuarioRepository usuarioRepository;
+  private readonly IUsuarioRepository usuarioRepository;
 
   private readonly ILogger<LoginController> _logger;
-  public LoginController(ILogger<LoginController> logger)
+  public LoginController(ILogger<LoginController> logger,IUsuarioRepository usuarioRepository)
   {
     _logger = logger;
-    usuarioRepository = new UsuarioRepository();
+    this.usuarioRepository = usuarioRepository;
   }
 
   public IActionResult Index()

@@ -5,14 +5,14 @@ namespace tl2_tp10_2023_FranceFalci.Controllers;
 
 public class TableroController : Controller
 {
-  private ITableroRepository tableroRepository;
+  private readonly ITableroRepository tableroRepository;
 
   private readonly ILogger<HomeController> _logger;
 
-  public TableroController(ILogger<HomeController> logger)
+  public TableroController(ILogger<HomeController> logger, ITableroRepository tableroRepository)
   {
     _logger = logger;
-    tableroRepository = new TableroRepository();
+    this.tableroRepository = tableroRepository;
 
   }
 

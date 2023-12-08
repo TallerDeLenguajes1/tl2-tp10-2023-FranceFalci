@@ -4,7 +4,13 @@ namespace tl2_tp10_2023_FranceFalci;
 public class UsuarioRepository : IUsuarioRepository
 
 {
-  private string cadenaConexion = "Data Source=BD/kanban.db;Cache=Shared";
+  // private string cadenaConexion = "Data Source=BD/kanban.db;Cache=Shared";
+  private readonly string cadenaConexion;
+
+  public UsuarioRepository(string CadenaDeConexion)
+  {
+    cadenaConexion = CadenaDeConexion;
+  }
 
 
   public List<Usuario> GetAll(){

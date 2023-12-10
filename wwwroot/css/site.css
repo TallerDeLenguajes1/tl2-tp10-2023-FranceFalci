@@ -20,3 +20,12 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.tarea{
+  cursor:grab;
+}
+
+.is-dragging{
+    cursor: grabbing;
+    background-color: #258cfb;
+}

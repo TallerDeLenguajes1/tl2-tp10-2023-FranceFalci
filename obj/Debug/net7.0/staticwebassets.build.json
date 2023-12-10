@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "GyH1TnYS9MdfKyeGEKPceAd3sJLSo+bOmLS15VL3pyg=",
+  "Hash": "aEyS6n2iAxF31lYyWRQQemI3ulj4O8ePeBuxhZRSXVY=",
   "Source": "tl2-tp10-2023-FranceFalci",
   "BasePath": "_content/tl2-tp10-2023-FranceFalci",
   "Mode": "Default",
@@ -85,6 +85,23 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "C:\\Users\\franc\\OneDrive\\Escritorio\\Facultad-2do-cuatrimestre\\Taller2\\tl2-tp10-2023-FranceFalci\\wwwroot\\js\\drag.js",
+      "SourceId": "tl2-tp10-2023-FranceFalci",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\franc\\OneDrive\\Escritorio\\Facultad-2do-cuatrimestre\\Taller2\\tl2-tp10-2023-FranceFalci\\wwwroot\\",
+      "BasePath": "_content/tl2-tp10-2023-FranceFalci",
+      "RelativePath": "js/drag.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\drag.js"
+    },
+    {
       "Identity": "C:\\Users\\franc\\OneDrive\\Escritorio\\Facultad-2do-cuatrimestre\\Taller2\\tl2-tp10-2023-FranceFalci\\wwwroot\\js\\site.js",
       "SourceId": "tl2-tp10-2023-FranceFalci",
       "SourceType": "Discovered",
@@ -100,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "C:\\Users\\franc\\OneDrive\\Escritorio\\Facultad-2do-cuatrimestre\\Taller2\\tl2-tp10-2023-FranceFalci\\wwwroot\\js\\sweetAlert.js",
+      "SourceId": "tl2-tp10-2023-FranceFalci",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\franc\\OneDrive\\Escritorio\\Facultad-2do-cuatrimestre\\Taller2\\tl2-tp10-2023-FranceFalci\\wwwroot\\",
+      "BasePath": "_content/tl2-tp10-2023-FranceFalci",
+      "RelativePath": "js/sweetAlert.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\sweetAlert.js"
     },
     {
       "Identity": "C:\\Users\\franc\\OneDrive\\Escritorio\\Facultad-2do-cuatrimestre\\Taller2\\tl2-tp10-2023-FranceFalci\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",

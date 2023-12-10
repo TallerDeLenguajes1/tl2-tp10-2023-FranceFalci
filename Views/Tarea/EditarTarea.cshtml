@@ -1,7 +1,7 @@
 @model EditarTareaViewModel
 
 
-<form asp-controller="Tarea" asp-action="EditarTarea">
+<form asp-controller="Tarea" asp-action="EditarTarea" onsubmit="confirmarEdicion('tarea' , @Model.Nombre)">
   <input hidden asp-for="@Model.Id">
   <input hidden asp-for="@Model.IdTablero">
 

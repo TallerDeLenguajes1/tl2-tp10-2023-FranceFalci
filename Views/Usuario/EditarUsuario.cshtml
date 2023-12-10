@@ -1,6 +1,7 @@
 @model EditarUsuarioViewModel
 
-<form asp-controller="Usuario" asp-action="EditarUsuario">
+<form asp-controller="Usuario" asp-action="EditarUsuario"
+  onsubmit="return confirmarEdicion(event, 'usuario', '@Model.NombreUsuario');">
   <input hidden asp-for="@Model.Id">
   <div class="form-group">
     <label asp-for="@Model.NombreUsuario"></label>

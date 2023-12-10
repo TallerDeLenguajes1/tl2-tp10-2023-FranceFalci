@@ -24,17 +24,22 @@
 
          <td>
           
-          <button type="button" class="btn btn-secondary ">
-              <a class="text-white text-decoration-none" asp-controller="Tablero" asp-action="EditarTablero"
-                asp-route-idTablero="@tablero.IdTablero">Editar</a>
-          </button>
 
-          <button type="button" class="btn btn-danger">
-              <a class="text-white text-decoration-none" asp-controller="Tablero" asp-action="EliminarTablero"
-                asp-route-idUsuario="@tablero.IdTablero"
-                onclick="return confirm('¿Estas seguro que quieres eliminar tablero @tablero.Nombre  ')">
-              Eliminar</a>
-          </button>
+            <button type="button" class="btn btn-secondary ">
+              <a class="text-white text-decoration-none" asp-controller="Tablero" asp-action="EditarTablero"
+                asp-route-idTablero="@tablero.IdTablero"
+              >Editar</a>
+            </button>
+            <a class="btn btn-danger text-white text-decoration-none" asp-controller="Tablero"
+              asp-action="EliminarTablero" asp-route-idTablero="@tablero.IdTablero"
+              onclick="return confirmarEliminacion('tablero', '@tablero.Nombre', '@Url.Action("EliminarTablero", "Tablero", new { idTablero = tablero.IdTablero })'); return false;">
+              Eliminar
+            </a>
+
+
+
+            
+
 
             <button type="button" class="btn btn-success">
               <a class="text-white text-decoration-none"  asp-controller="Tarea" asp-action="GetTareasByIdTablero"

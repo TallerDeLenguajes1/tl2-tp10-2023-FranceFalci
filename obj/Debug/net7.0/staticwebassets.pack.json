@@ -13,8 +13,16 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\franc\\OneDrive\\Escritorio\\Facultad-2do-cuatrimestre\\Taller2\\tl2-tp10-2023-FranceFalci\\wwwroot\\js\\drag.js",
+      "PackagePath": "staticwebassets\\js\\drag.js"
+    },
+    {
       "Id": "C:\\Users\\franc\\OneDrive\\Escritorio\\Facultad-2do-cuatrimestre\\Taller2\\tl2-tp10-2023-FranceFalci\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\franc\\OneDrive\\Escritorio\\Facultad-2do-cuatrimestre\\Taller2\\tl2-tp10-2023-FranceFalci\\wwwroot\\js\\sweetAlert.js",
+      "PackagePath": "staticwebassets\\js\\sweetAlert.js"
     },
     {
       "Id": "C:\\Users\\franc\\OneDrive\\Escritorio\\Facultad-2do-cuatrimestre\\Taller2\\tl2-tp10-2023-FranceFalci\\wwwroot\\lib\\bootstrap\\LICENSE",

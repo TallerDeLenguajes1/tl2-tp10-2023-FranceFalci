@@ -79,7 +79,7 @@ public class TableroController : Controller
   public IActionResult EliminarTablero(int idTablero)
   {
     if (!isLogueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-
+    
     tableroRepository.RemoveTablero(idTablero);
     return RedirectToAction("GetTableros");
   }

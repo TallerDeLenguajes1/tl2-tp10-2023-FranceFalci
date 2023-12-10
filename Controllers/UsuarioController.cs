@@ -20,53 +20,88 @@ public class UsuarioController : Controller
   [HttpGet]
   public IActionResult GetUsuarios()
   {
-    // if (String.IsNullOrEmpty(HttpContext.Session.GetString("usuario"))) return RedirectToRoute(new { controller = "Logueo", action = "Index" });
-    // if (HttpContext.Session.GetString("rol") != Rol.Administrador.ToString()) return RedirectToRoute(new { controller = "Logueo", action = "Index" });
-  // var vista = new ListarUsuariosViewModel();
-    var usuarios = usuarioRepository.GetAll();
+    if (isAdmin()){
+      var usuarios = usuarioRepository.GetAll();
     return View(new ListarUsuariosViewModel().GetIndexUsuariosViewModel(usuarios));
+    }
+  return RedirectToRoute(new { controller = "Home", action = "Error" });
+
   }
   [HttpGet]
   public IActionResult CrearUsuario()
   {
-    return View(new CrearUsuarioViewModel());
+    if (isAdmin()) return View(new CrearUsuarioViewModel());
+    return RedirectToRoute(new { controller = "Home", action = "Error" });
+
   }
 
   [HttpPost]
   public IActionResult CrearUsuario(CrearUsuarioViewModel usuarioCreadoVM)
   {
+    if (isAdmin()){
     if (!ModelState.IsValid) return RedirectToAction("CrearUsuario");
-
     var usuario = new Usuario(usuarioCreadoVM);
     usuarioRepository.Create(usuario);
     return RedirectToAction("GetUsuarios");
+    }
+    return RedirectToRoute(new { controller = "Home", action = "Error" });
+
   }
 
 
   [HttpGet]
   public IActionResult EditarUsuario(int idUsuario)
   {
-    var usuarioBuscado = usuarioRepository.GetById(idUsuario);
-    return View(new EditarUsuarioViewModel(usuarioBuscado));
+    if (isAdmin()){
+      var usuarioBuscado = usuarioRepository.GetById(idUsuario);
+      return View(new EditarUsuarioViewModel(usuarioBuscado));
+      }
+    return RedirectToRoute(new { controller = "Home", action = "Error" });
+
+
   }
 
 
   [HttpPost]
   public IActionResult EditarUsuario(EditarUsuarioViewModel usuarioEditadoVM)
   {
-    if (!ModelState.IsValid) return RedirectToAction("EditarUsuario", new { idUsuario = usuarioEditadoVM.Id });
+    if (isAdmin())
+    {
+      if (!ModelState.IsValid) return RedirectToAction("EditarUsuario", new { idUsuario = usuarioEditadoVM.Id });
 
     var usuario = new Usuario(usuarioEditadoVM);
     usuarioRepository.Update(usuario);
-
     return RedirectToAction("GetUsuarios");
+    }
+    return RedirectToRoute(new { controller = "Home", action = "Error" });
 
   }
 
   // ! [HttpDelete] porq?? 
   public IActionResult EliminarUsuario(int idUsuario)
   {
-    usuarioRepository.Remove(idUsuario);
+    if (isAdmin()){
+      usuarioRepository.Remove(idUsuario);
     return RedirectToAction("GetUsuarios");
+    }
+    return RedirectToRoute(new { controller = "Home", action = "Error" });
+
+  }
+  private bool isLogueado()
+{
+  if (HttpContext.Session != null && (HttpContext.Session.GetInt32("NivelAcceso") == 1 || HttpContext.Session.GetInt32("NivelAcceso") == 2))
+    return true;
+
+  return false;
+}
+
+  private bool isAdmin()
+  {
+    Console.WriteLine(HttpContext.Session.GetInt32("NivelAcceso"));
+    if (HttpContext.Session != null && HttpContext.Session.GetInt32("NivelAcceso") == 2)
+      return true;
+
+    return false;
   }
 }
+

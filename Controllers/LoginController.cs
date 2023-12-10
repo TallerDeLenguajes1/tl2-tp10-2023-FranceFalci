@@ -23,7 +23,9 @@ public class LoginController : Controller
 [HttpPost]
   public IActionResult Login(Usuario usuario)
   {
+    
     //existe el usuario?
+    
     var existeUsuario = usuarioRepository.validarUsuario(usuario);
     System.Diagnostics.Debug.WriteLine($"Usuario: {usuario.NombreUsuario}, Contraseña: {usuario.Contrasenia}");
 

@@ -41,7 +41,6 @@ public class Tarea{
 public enum EstadoTarea{
   Ideas, 
   ToDo,
- 
   Doing, 
   Review, 
   Done

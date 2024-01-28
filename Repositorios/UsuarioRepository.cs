@@ -127,9 +127,13 @@ public class UsuarioRepository : IUsuarioRepository
         usuario.Rol = (rol)Convert.ToInt32(reader["rol"]); 
         return usuario;
       }
-     
+
     };
       return null;
   }
+
+
+
+
 
 }

@@ -6,6 +6,10 @@ public interface ITableroRepository
   public Tablero GetTableroById(int idTablero);
   public List<Tablero> GetTableros();
   public List<Tablero> GetTableroByIdUsuario(int idUsuario);
+  public List<Tablero> GetTablerosOperario(int idUsuario);
+  public List<Tablero> GetTablerosAjenos(int idUsuario);
+  
+
 
   public void RemoveTablero(int idTablero);
 

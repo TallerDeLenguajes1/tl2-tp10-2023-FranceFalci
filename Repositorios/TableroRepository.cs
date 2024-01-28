@@ -118,6 +118,59 @@ public class TableroRepository : ITableroRepository {
 
   }
 
+  public List<Tablero> GetTablerosAjenos(int idUsuario)
+  {
+    SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
+    SQLiteCommand command = connection.CreateCommand();
+    command.CommandText = "SELECT * FROM tablero WHERE id_usuario_propietario <> @idUsuario";
+    command.Parameters.Add(new SQLiteParameter("@idUsuario", idUsuario));
+    connection.Open();
+    var tableros = new List<Tablero>();
+    using (SQLiteDataReader reader = command.ExecuteReader())
+    {
+      while (reader.Read())
+      {
+        var tablero = new Tablero();
+        tablero.IdTablero = Convert.ToInt32(reader["id_tablero"]);
+        tablero.IdUsuario = Convert.ToInt32(reader["id_usuario_propietario"]);
+        tablero.Descripcion = reader["descripcion"].ToString();
+        tablero.Nombre = reader["nombre"].ToString();
+        tableros.Add(tablero);
+      }
+    }
+    connection.Close();
+
+    return (tableros);
+
+  }
+
+  public List<Tablero> GetTablerosOperario(int idUsuario)
+  {
+    SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
+    SQLiteCommand command = connection.CreateCommand();
+    // command.CommandText = "SELECT t.id_tablero, t.nombre, t.descripcion, t.id_usuario_propietario FROM tablero t INNER JOIN tarea ta ON t.id_tablero = ta.id_tablero WHERE ta.id_usuario_asignado = @idUsuario UNION SELECT id_tablero, nombre, descripcion, id_usuario_propietario  FROM tablero WHERE id_usuario_propietario = @idUsuario; ";
+    command.CommandText = "SELECT t.id_tablero, t.nombre, t.descripcion, t.id_usuario_propietario FROM tablero t INNER JOIN tarea ta ON t.id_tablero = ta.id_tablero WHERE ta.id_usuario_asignado = @idUsuario; ";
+    command.Parameters.Add(new SQLiteParameter("@idUsuario", idUsuario));
+    connection.Open();
+    var tableros = new List<Tablero>();
+    using (SQLiteDataReader reader = command.ExecuteReader())
+    {
+      while (reader.Read())
+      {
+        var tablero = new Tablero();
+        tablero.IdTablero = Convert.ToInt32(reader["id_tablero"]);
+        tablero.IdUsuario = Convert.ToInt32(reader["id_usuario_propietario"]);
+        tablero.Descripcion = reader["descripcion"].ToString();
+        tablero.Nombre = reader["nombre"].ToString();
+        tableros.Add(tablero);
+      }
+    }
+    connection.Close();
+
+    return (tableros);
+
+  }
+
   public void RemoveTablero(int idTablero){
     using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
     {
@@ -132,3 +185,42 @@ public class TableroRepository : ITableroRepository {
     }
   }
 }
+
+
+
+
+// public List<Tablero> GetBoardsWithAssignedTasksByUser(int idUser)
+// {
+//   try
+//   {
+
+//     List<Tablero> tablerosUsuario = new List<Tablero>();
+
+//     using (var connection = new SQLiteConnection(connectionString))
+//     {
+//       connection.Open();
+//       string queryString = @"
+//                 SELECT DISTINCT(tablero.id), tablero.nombre, tablero.descripcion, id_usuario_propietario
+//                 FROM usuario INNER JOIN tablero ON(usuario.id = id_usuario_propietario)
+//                 INNER JOIN tarea ON(tablero.id = tarea.id_tablero)
+//                 WHERE id_usuario_asignado = @idUserAssigned AND id_usuario_propietario != @idUserAssigned;";
+//       var command = new SQLiteCommand(queryString, connection);
+//       command.Parameters.Add(new SQLiteParameter("@idUserAssigned", idUser));
+
+//       using (var reader = command.ExecuteReader())
+//       {
+//         while (reader.Read())
+//         {
+//           Tablero tablero = new Tablero
+//           {
+//             Id = Convert.ToInt32(reader["id"]),
+//             IdUsuarioPropietario = Convert.ToInt32(reader["id_usuario_propietario"]),
+//             Nombre = reader["nombre"].ToString(),
+//             Descripcion = reader["descripcion"].ToString()
+//           };
+//           tablerosUsuario.Add(tablero);
+//         }
+//       }
+
+//       connection.Close();
+//     }

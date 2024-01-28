@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp10_2023_FranceFalci.Models;
 namespace tl2_tp10_2023_FranceFalci.Controllers;
+using tl2_tp10_2023_FranceFalci;
 
 public class HomeController : Controller
 {
@@ -13,7 +14,8 @@ public class HomeController : Controller
     }
 
     public IActionResult Index()
-    {
+    {   
+        
         return View();
     }
 

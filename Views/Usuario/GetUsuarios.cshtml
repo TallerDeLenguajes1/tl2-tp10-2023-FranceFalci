@@ -1,4 +1,4 @@
-@Model List<IndexUsuarioViewModel>
+@model List<IndexUsuarioViewModel>
 
 <h2>Usuarios</h2>
   
@@ -38,3 +38,9 @@
 </table>
 
   <a asp-controller="Usuario" asp-action="CrearUsuario">Agregar Usuario</a>
+
+
+@section Scripts {
+  <partial name="_NotificationPartial" />
+
+}

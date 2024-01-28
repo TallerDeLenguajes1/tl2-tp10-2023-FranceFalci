@@ -11,35 +11,74 @@ public class TareaRepository : ITareaRepository{
     cadenaConexion = CadenaDeConexion;
   }
 
-  public void Create(Tarea tarea, int idTablero){
-    var query = $"INSERT INTO Tarea (id_tablero, nombre, estado,descripcion,color) VALUES (@idTablero, @nombre, @estado,@descripcion,@color)";
+  // public bool Create(Tarea tarea, int idTablero){
+  //   var query = $"INSERT INTO Tarea (id_tablero, nombre, estado,descripcion,color) VALUES (@idTablero, @nombre, @estado,@descripcion,@color)";
+  //   using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+  //   {
+
+  //     connection.Open();
+  //     var command = new SQLiteCommand(query, connection);
+
+  //     command.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
+  //     command.Parameters.Add(new SQLiteParameter("@nombre", tarea.Nombre));
+  //     command.Parameters.Add(new SQLiteParameter("@estado", (int)tarea.Estado));
+  //     command.Parameters.Add(new SQLiteParameter("@descripcion", tarea.Descripcion));
+  //     command.Parameters.Add(new SQLiteParameter("@color", tarea.Color));
+
+
+  //     command.ExecuteNonQuery();
+
+  //     connection.Close();
+  //     return true;
+  //   }
+  //   return false;
+  // }
+
+  public bool Create(Tarea tarea, int idTablero)
+  {
+    var query = $"INSERT INTO Tarea (id_tablero, nombre, estado, descripcion, color) VALUES (@idTablero, @nombre, @estado, @descripcion, @color)";
+
     using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
     {
+      try
+      {
+        connection.Open();
+        var command = new SQLiteCommand(query, connection);
 
-      connection.Open();
-      var command = new SQLiteCommand(query, connection);
+        command.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
+        command.Parameters.Add(new SQLiteParameter("@nombre", tarea.Nombre));
+        command.Parameters.Add(new SQLiteParameter("@estado", (int)tarea.Estado));
+        command.Parameters.Add(new SQLiteParameter("@descripcion", tarea.Descripcion));
+        command.Parameters.Add(new SQLiteParameter("@color", tarea.Color));
 
-      command.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
-      command.Parameters.Add(new SQLiteParameter("@nombre", tarea.Nombre));
-      command.Parameters.Add(new SQLiteParameter("@estado", (int)tarea.Estado));
-      command.Parameters.Add(new SQLiteParameter("@descripcion", tarea.Descripcion));
-      command.Parameters.Add(new SQLiteParameter("@color", tarea.Color));
+        command.ExecuteNonQuery();
 
-
-      command.ExecuteNonQuery();
-
-      connection.Close();
+        return true;
+      }
+      catch (Exception ex)
+      {
+        
+        // Lanza una excepción personalizada indicando que la creación falló
+        throw new Exception("Error al crear la tarea en la base de datos.", ex);
+      }
+      finally
+      {
+        connection.Close();
+      }
+    
     }
   }
+
   public void Update(Tarea tarea, int idTarea){
     using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
     {
 
       connection.Open();
       SQLiteCommand command = connection.CreateCommand();
-      command.CommandText = $"UPDATE tarea SET nombre=@nombre, estado = @estado, descripcion =@descripcion  WHERE id_tarea= @idTarea;";
+      command.CommandText = $"UPDATE tarea SET nombre=@nombre, estado = @estado, descripcion =@descripcion, id_usuario_asignado=@idUsuarioAsignado WHERE id_tarea= @idTarea;";
 
       command.Parameters.Add(new SQLiteParameter("@idTarea", idTarea));
+      command.Parameters.Add(new SQLiteParameter("@idUsuarioAsignado", tarea.IdUsuarioPropietario == 0 ? DBNull.Value : (object)tarea.IdUsuarioPropietario));
       command.Parameters.Add(new SQLiteParameter("@nombre", tarea.Nombre));
       command.Parameters.Add(new SQLiteParameter("@estado", (int)tarea.Estado));
       command.Parameters.Add(new SQLiteParameter("@descripcion", tarea.Descripcion));
@@ -107,6 +146,13 @@ public class TareaRepository : ITareaRepository{
     return tareas;
   }
   public List<Tarea> GetTareasPorTablero(int idTablero){
+
+    bool tableroExiste = TableroExiste(idTablero);
+
+    if (!tableroExiste)
+    {
+      throw new Exception("El tablero no existe.");
+    }
     var queryString = @"SELECT * FROM tarea WHERE id_tablero = @idTab;";
     List<Tarea> tareas = new List<Tarea>();
     using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
@@ -133,7 +179,29 @@ public class TareaRepository : ITareaRepository{
       }
       connection.Close();
     }
+  
+
     return tareas;
+  }
+  private bool TableroExiste(int idTablero)
+  {
+    var queryString = @"SELECT COUNT(*) FROM tablero WHERE id_tablero = @idTab;";
+    int count;
+
+    using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+    {
+      SQLiteCommand command = new SQLiteCommand(queryString, connection);
+      command.Parameters.Add(new SQLiteParameter("@idTab", idTablero));
+
+      connection.Open();
+
+      count = Convert.ToInt32(command.ExecuteScalar());
+
+      connection.Close();
+    }
+
+    // Devuelve true si el tablero existe (si count es mayor que cero), de lo contrario, devuelve false
+    return count > 0;
   }
   public void RemoveTarea(int idTarea){
     using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))

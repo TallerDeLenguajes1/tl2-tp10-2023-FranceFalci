@@ -3,28 +3,36 @@ using Microsoft.AspNetCore.Mvc;
 namespace tl2_tp10_2023_FranceFalci.Controllers;
 using tl2_tp10_2023_FranceFalci;
 
-public class UsuarioController : Controller
+public class UsuarioController : BaseController
 {
   private readonly IUsuarioRepository  usuarioRepository;
 
-  private readonly ILogger<HomeController> _logger;
+  private readonly ILogger<HomeController> logger;
 
   public UsuarioController(ILogger<HomeController> logger,IUsuarioRepository usuarioRepository)
   {
-    _logger = logger;
+    this.logger = logger;
     this.usuarioRepository = usuarioRepository;
 
   }
 
 
   [HttpGet]
+  [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
+
   public IActionResult GetUsuarios()
   {
-    if (isAdmin()){
-      var usuarios = usuarioRepository.GetAll();
-    return View(new ListarUsuariosViewModel().GetIndexUsuariosViewModel(usuarios));
+    if (!isLogueado())
+    {
+      SweetAlert("Error al ver usuarios. Debes estar logueado!", NotificationType.Error, "Oops..");
+      return RedirectToRoute(new { controller = "Login", action = "Index" });
     }
-  return RedirectToRoute(new { controller = "Home", action = "Error" });
+
+    if (!isAdmin()) return RedirectToRoute(new { controller = "Home", action = "Error" });
+
+    var usuarios = usuarioRepository.GetAll();
+    return View(new ListarUsuariosViewModel().GetIndexUsuariosViewModel(usuarios));
+    
 
   }
   [HttpGet]
@@ -38,13 +46,28 @@ public class UsuarioController : Controller
   [HttpPost]
   public IActionResult CrearUsuario(CrearUsuarioViewModel usuarioCreadoVM)
   {
-    if (isAdmin()){
-    if (!ModelState.IsValid) return RedirectToAction("CrearUsuario");
-    var usuario = new Usuario(usuarioCreadoVM);
-    usuarioRepository.Create(usuario);
-    return RedirectToAction("GetUsuarios");
+    if (!isLogueado())
+    {
+      SweetAlert("Error al crear usuario. Debes estar logueado!", NotificationType.Error, "Oops..");
+      return RedirectToRoute(new { controller = "Login", action = "Index" });
     }
-    return RedirectToRoute(new { controller = "Home", action = "Error" });
+    if (!isAdmin()) return RedirectToRoute(new { controller = "Home", action = "Error" });
+
+    if (!ModelState.IsValid) return RedirectToAction("CrearUsuario");
+
+    try{
+      var usuario = new Usuario(usuarioCreadoVM);
+      usuarioRepository.Create(usuario);
+      SweetAlert("Usuario creado con exito", NotificationType.Success, "Genial!");
+
+    }
+    catch (Exception ex){
+      logger.LogError(ex.ToString());
+      SweetAlert("Error al editar usuario.", NotificationType.Error, "Oops..");
+
+    }
+    return RedirectToAction("GetUsuarios");
+    
 
   }
 
@@ -52,11 +75,19 @@ public class UsuarioController : Controller
   [HttpGet]
   public IActionResult EditarUsuario(int idUsuario)
   {
-    if (isAdmin()){
+    if (!isAdmin()) return RedirectToRoute(new { controller = "Home", action = "Error" });
+
+    try{
+
       var usuarioBuscado = usuarioRepository.GetById(idUsuario);
       return View(new EditarUsuarioViewModel(usuarioBuscado));
-      }
-    return RedirectToRoute(new { controller = "Home", action = "Error" });
+
+    }catch (Exception ex){
+      logger.LogError(ex.ToString());
+      return RedirectToRoute(new { controller = "Home", action  = "Error" });
+
+    }
+
 
 
   }
@@ -65,26 +96,48 @@ public class UsuarioController : Controller
   [HttpPost]
   public IActionResult EditarUsuario(EditarUsuarioViewModel usuarioEditadoVM)
   {
-    if (isAdmin())
+    if (!isLogueado())
     {
-      if (!ModelState.IsValid) return RedirectToAction("EditarUsuario", new { idUsuario = usuarioEditadoVM.Id });
-
-    var usuario = new Usuario(usuarioEditadoVM);
-    usuarioRepository.Update(usuario);
-    return RedirectToAction("GetUsuarios");
+      SweetAlert("Error al editar usuario. Debes estar logueado!", NotificationType.Error, "Oops..");
+      return RedirectToRoute(new { controller = "Login", action = "Index" });
     }
-    return RedirectToRoute(new { controller = "Home", action = "Error" });
+
+    if (!isAdmin()) return RedirectToRoute(new { controller = "Home", action = "Error" });
+    
+    if (!ModelState.IsValid) return RedirectToAction("EditarUsuario", new { idUsuario = usuarioEditadoVM.Id });
+
+    try{
+
+      var usuario = new Usuario(usuarioEditadoVM);
+      usuarioRepository.Update(usuario);
+      SweetAlert("Usuario editado con exito", NotificationType.Success, "Genial!");
+    
+    }catch(Exception ex){
+      logger.LogError(ex.ToString());
+      SweetAlert("Error al eliminar usuario.", NotificationType.Error, "Oops..");
+    }
+    
+    return RedirectToAction("GetUsuarios");
 
   }
 
   // ! [HttpDelete] porq?? 
   public IActionResult EliminarUsuario(int idUsuario)
   {
-    if (isAdmin()){
+    if (!isAdmin()) return RedirectToRoute(new { controller = "Home", action = "Error" });
+
+    try{
+
       usuarioRepository.Remove(idUsuario);
-    return RedirectToAction("GetUsuarios");
+      SweetAlert("Usuario eliminado con exito", NotificationType.Success, "Genial!");
+    
+    }catch(Exception ex){
+      logger.LogError(ex.ToString());
+      SweetAlert("Error al eliminar usuario.", NotificationType.Error, "Oops..");
+      return RedirectToRoute(new { controller = "Home", action = "Error" });
     }
-    return RedirectToRoute(new { controller = "Home", action = "Error" });
+      return RedirectToAction("GetUsuarios");
+    
 
   }
   private bool isLogueado()
@@ -97,7 +150,6 @@ public class UsuarioController : Controller
 
   private bool isAdmin()
   {
-    Console.WriteLine(HttpContext.Session.GetInt32("NivelAcceso"));
     if (HttpContext.Session != null && HttpContext.Session.GetInt32("NivelAcceso") == 2)
       return true;
 

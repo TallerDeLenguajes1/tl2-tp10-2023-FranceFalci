@@ -1,7 +1,7 @@
 namespace tl2_tp10_2023_FranceFalci;
 public interface ITareaRepository
 {
-  public void Create(Tarea tarea, int idTablero);
+  public bool Create(Tarea tarea, int idTablero);
   public void Update(Tarea tarea, int idTarea);
   public Tarea GetTareaById(int id);
   public List<Tarea> GetTareasPorUsuario(int idUsuario);

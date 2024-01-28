@@ -1,38 +1,46 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp10_2023_FranceFalci.Models;
+using System.Text.Json;
+
 namespace tl2_tp10_2023_FranceFalci.Controllers;
 
-public class TableroController : Controller
+public class TableroController : BaseController
 {
   private readonly ITableroRepository tableroRepository;
 
-  private readonly ILogger<HomeController> _logger;
+  private readonly ILogger<HomeController> logger;
 
   public TableroController(ILogger<HomeController> logger, ITableroRepository tableroRepository)
   {
-    _logger = logger;
+    this.logger = logger;
     this.tableroRepository = tableroRepository;
 
   }
 
 
   [HttpGet]
+  [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
+
   public IActionResult GetTableros()
   {
     if (!isLogueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
     
+      int idUsuario = HttpContext.Session.GetInt32("ID") ?? -1;
+    var tablerosPropios = tableroRepository.GetTableroByIdUsuario(idUsuario);
     if(isAdmin()){
       var tablerosGeneral = tableroRepository.GetTableros();
-      return View(tablerosGeneral);
+      // return View(tablerosGeneral);
+      var tablerosAjenos = tableroRepository.GetTablerosAjenos(idUsuario);
+      return View(new ListarTablerosViewModel(tablerosPropios, tablerosAjenos));
     }
 
     if(isOperador()){
-      Console.WriteLine("Rol: Operador");
 
-      int idUsuario = HttpContext.Session.GetInt32("ID") ?? -1;
-      var tableros = tableroRepository.GetTableroByIdUsuario(idUsuario);
-      return View(tableros);
+      // var tableros = tableroRepository.GetTablerosOperario(idUsuario);
+      var tablerosAjenos = tableroRepository.GetTablerosOperario(idUsuario);
+      var viewModel = new ListarTablerosViewModel(tablerosPropios, tablerosAjenos);
+      return View("GetTablerosOperario", viewModel);
     }
 
     return RedirectToRoute(new { controller = "Login", action = "Index" });
@@ -42,7 +50,6 @@ public class TableroController : Controller
   [HttpGet]
   public IActionResult CrearTablero()
   {
-    // Debug.WriteLine("id Usuario : {idUsuario}");
     if (!isLogueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
     return View(new CrearTableroViewModel());
   }
@@ -50,11 +57,24 @@ public class TableroController : Controller
   [HttpPost]
   public IActionResult CrearTablero(CrearTableroViewModel tableroCreadoVM)
   {
-    if (!isLogueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+    if (!isLogueado()) {
+        SweetAlert("Error al crear tablero. Debes estar logueado!", NotificationType.Error, "Oops..");
+        return RedirectToRoute(new { controller = "Login", action = "Index" });
+    }
     if (!ModelState.IsValid) return RedirectToAction("CrearUsuario");
-    var tablero = new Tablero(tableroCreadoVM);
-    tablero.IdUsuario = (int)HttpContext.Session.GetInt32("ID");
-    tableroRepository.Create(tablero);
+    
+    try{
+      var tablero = new Tablero(tableroCreadoVM);
+      tablero.IdUsuario = (int)HttpContext.Session.GetInt32("ID");
+      tableroRepository.Create(tablero);
+
+      SweetAlert("Tablero creado con exito" , NotificationType.Success, "Genial!");
+
+    }catch (Exception ex){
+      logger.LogError(ex.ToString());
+      SweetAlert("Error al crear tablero", NotificationType.Error, "Oops..");
+    }
+
     return RedirectToAction("GetTableros");
   }
 
@@ -62,31 +82,59 @@ public class TableroController : Controller
   public IActionResult EditarTablero(int idTablero)
   {
     if (!isLogueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+    try{
     var tableroAEditar = tableroRepository.GetTableroById(idTablero);
     return View(new EditarTableroViewModel(tableroAEditar));
+    }
+    catch (Exception ex)
+    {
+      logger.LogError(ex.ToString());
+      return RedirectToRoute(new { controller = "Home", action = "Error" });
+    }
   }
 
   [HttpPost]
   public IActionResult EditarTablero(EditarTableroViewModel tableroEditadoVM)
   {
-    if (!isLogueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+    if (!isLogueado()) {
+      SweetAlert("Error al editar tablero. Debes estar logueado!", NotificationType.Error, "Oops..");
+      return RedirectToRoute(new { controller = "Login", action = "Index" });
+    }
     if (!ModelState.IsValid) return RedirectToAction("EditarTablero", new { idTablero = tableroEditadoVM.IdTablero });
 
+    try{
     var tableroAModificar = new Tablero(tableroEditadoVM);
     tableroRepository.Update(tableroAModificar, tableroAModificar.IdTablero);
+    SweetAlert("Tablero editado con éxito.", NotificationType.Success, "Genial!");
+
+    }
+    catch (Exception ex)
+    {
+      logger.LogError(ex.ToString());
+      SweetAlert("Error al editar tablero.", NotificationType.Error, "Oops..");
+
+    }
+
     return RedirectToAction("GetTableros");
   }
   public IActionResult EliminarTablero(int idTablero)
   {
     if (!isLogueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-    
-    tableroRepository.RemoveTablero(idTablero);
+    try{
+     tableroRepository.RemoveTablero(idTablero);
+    SweetAlert("Tablero eliminado con éxito.", NotificationType.Success, "Genial!");
+
+    }
+    catch (Exception ex){
+      logger.LogError(ex.ToString());
+      SweetAlert("Error al eliminar tablero.", NotificationType.Error, "Oops..");
+
+    }
     return RedirectToAction("GetTableros");
   }
 
   private bool isAdmin()
   {
-    Console.WriteLine(HttpContext.Session.GetInt32("NivelAcceso"));
     if (HttpContext.Session != null && HttpContext.Session.GetInt32("NivelAcceso") == 2)
       return true;
 

@@ -20,20 +20,18 @@
                     <p class="card-text">@tablero.Descripcion</p>
                 </div>
                 <div class="card-footer">
-          <a class=" btn doing text-dark text-decoration-none"           asp-controller="Tablero"
-                           asp-action="EditarTablero"
-                           asp-route-idTablero="@tablero.IdTablero">Editar</a>
-                    <a class="btn review text-dark text-decoration-none"
-                       asp-controller="Tablero"
-                       asp-action="EliminarTablero"
-                       asp-route-idTablero="@tablero.IdTablero"
-                       onclick="return confirmarEliminacion('tablero', '@tablero.Nombre', '@Url.Action("EliminarTablero", "Tablero", new { idTablero = tablero.IdTablero })'); return false;">
-                        Eliminar
-                    </a>
+          <a class=" btn doing text-dark text-decoration-none" asp-controller="Tablero" asp-action="EditarTablero"
+            asp-route-idTablero="@tablero.IdTablero">Editar</a>
+          <a class="btn review text-dark text-decoration-none" asp-controller="Tablero" asp-action="EliminarTablero"
+            asp-route-idTablero="@tablero.IdTablero"
+            onclick="return confirmarEliminacion('tablero', '@tablero.Nombre', '@Url.Action("EliminarTablero", "Tablero", new { idTablero = tablero.IdTablero })'); return false;">
+            Eliminar
+          </a>
+          
                         <a class=" btn todo text-dark text-decoration-none"
                            asp-controller="Tarea"
                            asp-action="GetTareasByIdTablero"
-            asp-route-idTablero="@tablero.IdTablero" >Ver Tareas</a>
+                           asp-route-idTablero="@tablero.IdTablero">Ver Tareas</a>
                 </div>
             </div>
         </div>
@@ -50,13 +48,7 @@
           <p class="card-text">@tablero.Descripcion</p>
         </div>
         <div class="card-footer">
-          <a class=" btn doing text-dark text-decoration-none" asp-controller="Tablero" asp-action="EditarTablero"
-            asp-route-idTablero="@tablero.IdTablero">Editar</a>
-          <a class="btn review text-dark text-decoration-none" asp-controller="Tablero" asp-action="EliminarTablero"
-            asp-route-idTablero="@tablero.IdTablero"
-            onclick="return confirmarEliminacion('tablero', '@tablero.Nombre', '@Url.Action("EliminarTablero", "Tablero", new { idTablero = tablero.IdTablero })'); return false;">
-            Eliminar
-          </a>
+ 
           <a class=" btn todo text-dark text-decoration-none" asp-controller="Tarea" asp-action="GetTareasByIdTablero"
             asp-route-idTablero="@tablero.IdTablero">Ver Tareas</a>
         </div>

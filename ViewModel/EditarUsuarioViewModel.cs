@@ -11,8 +11,10 @@ public class EditarUsuarioViewModel
   [Required(ErrorMessage = "Este campo es requerido")]
   public rol Rol { get; set; }
 
-  public EditarUsuarioViewModel(){}
-  public EditarUsuarioViewModel(Usuario usuario)
+  public EditarUsuarioViewModel(){
+
+  }
+  public EditarUsuarioViewModel(Usuario usuario )
   {
     Id = usuario.Id;
     NombreUsuario = usuario.NombreUsuario;

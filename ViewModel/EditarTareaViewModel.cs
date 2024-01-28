@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 namespace tl2_tp10_2023_FranceFalci;
 public class EditarTareaViewModel
 {
+  public List<Usuario> usuarios;
   public int Id { get; set; }
   public int IdUsuarioPropietario { get; set; }
   public int IdTablero { get; set; }
@@ -13,8 +14,9 @@ public class EditarTareaViewModel
   public string Descripcion { get; set; }
   public EstadoTarea Estado { get; set; }
 
-  public EditarTareaViewModel(Tarea tarea)
+  public EditarTareaViewModel(Tarea tarea , List<Usuario> usuarios)
   {
+    this.usuarios = usuarios;
     IdTablero =tarea.IdTablero;
     IdUsuarioPropietario = tarea.IdUsuarioPropietario;
     Id = tarea.Id;

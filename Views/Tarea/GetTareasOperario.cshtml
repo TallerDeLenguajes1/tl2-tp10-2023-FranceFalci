@@ -51,10 +51,26 @@ EstadoTarea.Done };
         foreach (var tarea in tareas)
         {
           var colorEstado = GetColorClass(tarea.Estado);
-          <div class=""  data-bs-toggle="modal" data-bs-target="#modal-@tarea.Id" data-id="@tarea.Id"
+          <div class="tarea"  data-bs-toggle="modal" data-bs-target="#modal-@tarea.Id" data-id="@tarea.Id"
             data-nombre="@tarea.Nombre" data-descripcion="@tarea.Descripcion" data-tablero="@tarea.IdTablero"
             data-asignado="@tarea.IdUsuarioAsignado">
-            @tarea.Nombre
+            <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M0 1C0 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0H13C13.2652 0 13.5196 0.105357 13.7071 0.292893C13.8946 0.48043 14 0.734784 14 1C14 1.26522 13.8946 1.51957 13.7071 1.70711C13.5196 1.89464 13.2652 2 13 2H1C0.734784 2 0.48043 1.89464 0.292893 1.70711C0.105357 1.51957 0 1.26522 0 1ZM0 6C0 5.73478 0.105357 5.48043 0.292893 5.29289C0.48043 5.10536 0.734784 5 1 5H13C13.2652 5 13.5196 5.10536 13.7071 5.29289C13.8946 5.48043 14 5.73478 14 6C14 6.26522 13.8946 6.51957 13.7071 6.70711C13.5196 6.89464 13.2652 7 13 7H1C0.734784 7 0.48043 6.89464 0.292893 6.70711C0.105357 6.51957 0 6.26522 0 6ZM0 11C0 10.7348 0.105357 10.4804 0.292893 10.2929C0.48043 10.1054 0.734784 10 1 10H7C7.26522 10 7.51957 10.1054 7.70711 10.2929C7.89464 10.4804 8 10.7348 8 11C8 11.2652 7.89464 11.5196 7.70711 11.7071C7.51957 11.8946 7.26522 12 7 12H1C0.734784 12 0.48043 11.8946 0.292893 11.7071C0.105357 11.5196 0 11.2652 0 11Z"
+                fill="#555555" />
+            </svg>
+            <span class="ms-2">@tarea.Nombre</span>
+            <div>
+              <svg width="15" height="29" viewBox="0 0 31 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M4.41717 23.206C7.79795 21.4269 11.6165 20.4945 15.5 20.5C19.5278 20.5 23.3091 21.4825 26.5828 23.206M20.3333 11.5C20.3333 12.6935 19.8241 13.8381 18.9177 14.682C18.0113 15.5259 16.7819 16 15.5 16C14.2181 16 12.9887 15.5259 12.0823 14.682C11.1759 13.8381 10.6667 12.6935 10.6667 11.5C10.6667 10.3065 11.1759 9.16193 12.0823 8.31802C12.9887 7.47411 14.2181 7 15.5 7C16.7819 7 18.0113 7.47411 18.9177 8.31802C19.8241 9.16193 20.3333 10.3065 20.3333 11.5ZM30 14.5C30 16.2728 29.6249 18.0283 28.8963 19.6662C28.1676 21.3041 27.0995 22.7923 25.753 24.0459C24.4066 25.2995 22.8081 26.2939 21.0489 26.9724C19.2897 27.6508 17.4042 28 15.5 28C13.5958 28 11.7103 27.6508 9.95109 26.9724C8.19187 26.2939 6.5934 25.2995 5.24695 24.0459C3.9005 22.7923 2.83244 21.3041 2.10375 19.6662C1.37505 18.0283 1 16.2728 1 14.5C1 10.9196 2.52767 7.4858 5.24695 4.95406C7.96623 2.42232 11.6544 1 15.5 1C19.3456 1 23.0338 2.42232 25.753 4.95406C28.4723 7.4858 30 10.9196 30 14.5Z"
+                  stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+
+              @(tarea.Usuarios.FirstOrDefault(u => u.Id ==
+                  tarea.IdUsuarioAsignado)?.NombreUsuario ??
+                  "Sin definir")
+            </div>
           </div>
 
           <div class="modal fade " id="modal-@tarea.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -65,17 +81,19 @@ EstadoTarea.Done };
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  @tarea.Descripcion
+                  <p> <strong> Descripcion</strong>: @tarea.Descripcion</p>
+                  <p><strong>Usuario asignado</strong>: @(tarea.Usuarios.FirstOrDefault(u => u.Id ==
+              tarea.IdUsuarioAsignado)?.NombreUsuario ??
+              "sin definir")
+                  </p>
                 </div>
                 <div class="modal-footer">
-                  <button class="btn btn-ligth btn-icon-editar">
 
 
                 
-                    <a class="text-light text-decoration-none" asp-controller="Tarea" asp-action="EditarTareaAsignada"
+                    <a class="btn-editar-white text-light text-decoration-none" asp-controller="Tarea" asp-action="EditarTareaAsignada"
                       asp-route-idTarea="@tarea.Id" asp-route-idTablero="@idTableroInt">Editar</a>
 
-                  </button>
       
 
                    

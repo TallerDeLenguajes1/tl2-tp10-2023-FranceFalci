@@ -41,8 +41,13 @@ EstadoTarea.Done };
   @foreach (var estado in ordenEstados)
   {
     var bgColor = GetColorClass(estado);
+    var bgColorDark = GetColorClassDark(estado);
+
     <div class=" @bgColor m-2 p-2 contenedor-tareas " data-estado="@estado">
-      <h4>@estado</h4>
+      <h4 class="@bgColorDark">
+
+        @estado
+        </h4>
 
       @if (tareasPorEstado.ContainsKey(estado))
       {
@@ -50,12 +55,27 @@ EstadoTarea.Done };
         foreach (var tarea in tareas)
         {
           var colorEstado = GetColorClass(tarea.Estado);
-          <h1>@tarea.IdUsuarioAsignado</h1>
-          <h1>@tarea.IdTablero</h1>
+          @* <h1>@tarea.IdUsuarioAsignado</h1> *@
+          @* <h1>@tarea.IdTablero</h1> *@
 
           <div class="tarea" draggable="true" data-bs-toggle="modal" data-bs-target="#modal-@tarea.Id" data-id="@tarea.Id"
             data-nombre="@tarea.Nombre" data-descripcion="@tarea.Descripcion" data-tablero="@tarea.IdTablero" data-asignado="@tarea.IdUsuarioAsignado">
-            @tarea.Nombre
+            <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M0 1C0 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0H13C13.2652 0 13.5196 0.105357 13.7071 0.292893C13.8946 0.48043 14 0.734784 14 1C14 1.26522 13.8946 1.51957 13.7071 1.70711C13.5196 1.89464 13.2652 2 13 2H1C0.734784 2 0.48043 1.89464 0.292893 1.70711C0.105357 1.51957 0 1.26522 0 1ZM0 6C0 5.73478 0.105357 5.48043 0.292893 5.29289C0.48043 5.10536 0.734784 5 1 5H13C13.2652 5 13.5196 5.10536 13.7071 5.29289C13.8946 5.48043 14 5.73478 14 6C14 6.26522 13.8946 6.51957 13.7071 6.70711C13.5196 6.89464 13.2652 7 13 7H1C0.734784 7 0.48043 6.89464 0.292893 6.70711C0.105357 6.51957 0 6.26522 0 6ZM0 11C0 10.7348 0.105357 10.4804 0.292893 10.2929C0.48043 10.1054 0.734784 10 1 10H7C7.26522 10 7.51957 10.1054 7.70711 10.2929C7.89464 10.4804 8 10.7348 8 11C8 11.2652 7.89464 11.5196 7.70711 11.7071C7.51957 11.8946 7.26522 12 7 12H1C0.734784 12 0.48043 11.8946 0.292893 11.7071C0.105357 11.5196 0 11.2652 0 11Z"
+                fill="#555555" />
+            </svg>
+            <span class="ms-2">@tarea.Nombre</span>
+            <div>
+              <svg width="15" height="29" viewBox="0 0 31 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M4.41717 23.206C7.79795 21.4269 11.6165 20.4945 15.5 20.5C19.5278 20.5 23.3091 21.4825 26.5828 23.206M20.3333 11.5C20.3333 12.6935 19.8241 13.8381 18.9177 14.682C18.0113 15.5259 16.7819 16 15.5 16C14.2181 16 12.9887 15.5259 12.0823 14.682C11.1759 13.8381 10.6667 12.6935 10.6667 11.5C10.6667 10.3065 11.1759 9.16193 12.0823 8.31802C12.9887 7.47411 14.2181 7 15.5 7C16.7819 7 18.0113 7.47411 18.9177 8.31802C19.8241 9.16193 20.3333 10.3065 20.3333 11.5ZM30 14.5C30 16.2728 29.6249 18.0283 28.8963 19.6662C28.1676 21.3041 27.0995 22.7923 25.753 24.0459C24.4066 25.2995 22.8081 26.2939 21.0489 26.9724C19.2897 27.6508 17.4042 28 15.5 28C13.5958 28 11.7103 27.6508 9.95109 26.9724C8.19187 26.2939 6.5934 25.2995 5.24695 24.0459C3.9005 22.7923 2.83244 21.3041 2.10375 19.6662C1.37505 18.0283 1 16.2728 1 14.5C1 10.9196 2.52767 7.4858 5.24695 4.95406C7.96623 2.42232 11.6544 1 15.5 1C19.3456 1 23.0338 2.42232 25.753 4.95406C28.4723 7.4858 30 10.9196 30 14.5Z"
+                  stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+
+              @(tarea.Usuarios.FirstOrDefault(u => u.Id ==
+              tarea.IdUsuarioAsignado)?.NombreUsuario ??
+              "Sin definir")</div>
           </div>
 
           <div class="modal fade " id="modal-@tarea.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -66,37 +86,24 @@ EstadoTarea.Done };
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  @tarea.Descripcion
+                  <p> <strong> Descripcion</strong>: @tarea.Descripcion</p>
+                  <p><strong>Usuario asignado</strong>: @(tarea.Usuarios.FirstOrDefault(u => u.Id ==
+              tarea.IdUsuarioAsignado)?.NombreUsuario ??
+                    "sin definir")
+                  </p>
+
                 </div>
                 <div class="modal-footer">
-                  <button class="btn btn-ligth btn-icon-editar">
-                    @* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round"
-              d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25
-              2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0
-              00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5
-              0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5
-              0a48.667 48.667 0 00-7.5 0" />
-              </svg> *@
-                    <a class="text-light text-decoration-none" asp-controller="Tarea" asp-action="EditarTarea"
+
+                    <a class=" btn-editar-white text-light text-decoration-none" asp-controller="Tarea" asp-action="EditarTarea"
                       asp-route-idTarea="@tarea.Id">Editar</a>
 
-                  </button>
-                  <button class="btn btn-icon-eliminar">
-                    @* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round"
-              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6
-              18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25
-              2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-              </svg> *@
 
-                    <a class="text-light text-decoration-none a-btn" asp-controller="Tarea" asp-action="DeleteTarea"
+
+                    <a class=" btn-eliminar text-light text-decoration-none a-btn" asp-controller="Tarea" asp-action="DeleteTarea"
                       asp-route-idTarea="@tarea.Id"
                       onclick="return confirmarEliminacion('tarea', '@tarea.Nombre', '@Url.Action("EliminarTarea", "Tarea", new { idTarea = tarea.Id })'); return false;">Eliminar</a>
 
-                  </button>
                 </div>
               </div>
             </div>
@@ -145,6 +152,25 @@ EstadoTarea.Done };
     }
   }
 
+  string GetColorClassDark(EstadoTarea estado)
+  {
+    switch (estado)
+    {
+      case EstadoTarea.Ideas:
+        return "ideas-dark";
+      case EstadoTarea.ToDo:
+        return "todo-dark";
+      case EstadoTarea.Doing:
+        return "doing-dark";
+      case EstadoTarea.Review:
+        return "review-dark";
+      case EstadoTarea.Done:
+        return "done-dark";
+      default:
+        return "";
+    }
+  }
+
 
 }
 
@@ -157,34 +183,4 @@ EstadoTarea.Done };
 
 
 
-        @* <div class="card tarea  mb-4 text-white  " draggable="true" style="height:4rem; margin-left:1rem;"
-          data-id="@tarea.Id" data-nombre="@tarea.Nombre" data-descripcion="@tarea.Descripcion" >
-
-          <div class="card-header fw-bold">@tarea.Nombre</div>
-          <div class="card-body">
-            <p class="card-text">@tarea.Descripcion</p>
-     
-
-            <button class="btn btn-danger">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-              </svg>
-              <a class="text-light text-decoration-none" asp-controller="Tarea" asp-action="EditarTarea"
-                asp-route-idTarea="@tarea.Id" >Editar</a>
-            </button>
-            <button class="btn btn-danger">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-              </svg>
-
-              <a class="text-light text-decoration-none" asp-controller="Tarea" asp-action="DeleteTarea"
-                asp-route-idTarea="@tarea.Id" onclick="return confirmarEliminar('@tarea.Nombre');">Eliminar</a>
-            </button> 
-
-            
-          </div>
-        </div> *@
+  

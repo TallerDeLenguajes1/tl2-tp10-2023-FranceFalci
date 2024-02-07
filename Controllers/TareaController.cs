@@ -33,7 +33,8 @@ public class TareaController : BaseController
     var usuarioPropietario = tableroRepository.GetPropietarioByIdTablero(idTablero);
     if(!esPropietario(usuarioPropietario) &&  !isAdmin()) {
       var tareas = tareaRepository.GetTareasPorTablero(idTablero);
-      var viewModel = new ListarTareasViewModel().GetIndexTareaViewModel(tareas);
+      var usuarios = usuarioRepository.GetAll();
+      var viewModel = new ListarTareasViewModel().GetIndexTareaViewModel(tareas,usuarios);
 
 
       return View("GetTareasOperario", viewModel);
@@ -42,7 +43,8 @@ public class TareaController : BaseController
     try
     {
     var tareas = tareaRepository.GetTareasPorTablero(idTablero);
-    return View( new ListarTareasViewModel().GetIndexTareaViewModel(tareas));
+    var usuarios = usuarioRepository.GetAll();
+      return View( new ListarTareasViewModel().GetIndexTareaViewModel(tareas,usuarios));
     }catch{
       return RedirectToRoute(new { controller = "Home", action = "Error" });
 
@@ -195,9 +197,7 @@ public class TareaController : BaseController
     {
       var tareaAModificar = new Tarea(tareaEditadaVM);
 
-      Console.WriteLine(tareaAModificar.IdTablero);
       tareaRepository.Update(tareaAModificar, tareaAModificar.Id);
-      Console.WriteLine(tareaAModificar.IdTablero);
 
       return RedirectToAction("GetTareasByIdTablero", new { idTablero = tareaAModificar.IdTablero });
 

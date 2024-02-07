@@ -6,7 +6,7 @@
   --review : #FBC6C5;
   --todo_dark: #5545AD;
   --doing_dark: #326192;
-  --ideas_dark: #FAE8CB;
+  --ideas_dark: #986F2D;
   --done_dark: #35702E;
   --review_dark: #B04947;
   --white-ligth : #FCFCFC;
@@ -97,6 +97,30 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+.form-gral{
+    border: 1.5px solid var(--todo_dark);
+      box-shadow: 1px 2px rgba(0, 0, 0, 0.349);
+  height: 400px;
+    width: 240px;
+    background-color: #fff;
+    border-radius: 2.5rem;
+    margin: 0 25rem;
+    position: relative;
+}
+.form-gral input ,.form-gral select {
+    border-radius: 2rem;
+    margin: 5px 0;
+}
+
+.bussines-amico{
+  position: absolute;
+  bottom: 60px;
+  left: 610px;
+  z-index: -100;
+}
+.form-gral form{
+  
+}
 .form-login{
   height: 150px;
   /* border: 2px solid black; */
@@ -112,7 +136,7 @@ body {
 .tarea{
   cursor: pointer;
   margin: .5rem;
-  border-radius: .3rem !important;
+  border-radius: 1rem !important;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   background-color: #ffffffd5;
   padding: .8rem .8rem;
@@ -176,26 +200,47 @@ body {
 }
 
 .ideas{
-background-color: #FFFFA7 !important;
+background-color: var(--ideas) !important;
 }
 
 .todo{
   
-  background-color: #DEA0FF ;
+  background-color: var(--todo) ;
 }
 
 
 .doing{
-  background-color: #B9DDFF ;
+  background-color: var(--doing);
 }
 
 .review{
-background-color: #FFC8F9 ;
+background-color: var(--review) ;
 }
 .done{
-  background-color: #84FFCE; 
+  background-color: var(--done); 
 }
 
+.ideas-dark {
+  color: var(--ideas_dark) !important;
+}
+
+.todo-dark {
+
+color: var(--todo_dark);
+}
+
+
+.doing-dark {
+color: var(--doing_dark);
+}
+
+.review-dark {
+color: var(--review_dark);
+}
+
+.done-dark {
+color: var(--done_dark);
+}
 
 .btn-eliminar{
   font-weight:500;
@@ -217,6 +262,14 @@ background-color: #FFC8F9 ;
 
 }
 
+.btn-editar-white{
+    font-weight: 500;
+      padding: .1rem .8rem;
+      border-radius: .8rem;
+      margin: 2px;
+      background-color: #fff !important;
+      color: #333 !important;
+}
 .btn-tareas {
   
     font-weight: 500;

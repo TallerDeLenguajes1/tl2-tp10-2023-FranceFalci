@@ -4,7 +4,7 @@ public class ListarTareasViewModel
 {
   //public List<ElementoIndexProductoViewModel> ProductoViewModels{get;set;}
 
-  public List<IndexTareaViewModel> GetIndexTareaViewModel(List<Tarea> tareas)
+  public List<IndexTareaViewModel> GetIndexTareaViewModel(List<Tarea> tareas, List<Usuario> usuarios)
   {
     var tareasViewModel = new List<IndexTareaViewModel>();
     foreach (var tarea in tareas)
@@ -17,6 +17,7 @@ public class ListarTareasViewModel
         Estado = tarea.Estado,
         IdUsuarioAsignado = tarea.IdUsuarioAsignado,
         IdTablero = tarea.IdTablero,
+        Usuarios = usuarios
       });
     }
 

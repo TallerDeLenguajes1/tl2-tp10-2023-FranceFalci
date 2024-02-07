@@ -178,10 +178,18 @@ public class TareaController : BaseController
 
 
     if (!ModelState.IsValid) return RedirectToAction("EditarTarea");
-    if (!isAdmin() && !isTareaAsignada(tareaEditadaVM.IdUsuarioAsignado) && !esPropietario(tareaEditadaVM.IdTablero))
+    // if (!isAdmin() && !isTareaAsignada(tareaEditadaVM.IdUsuarioAsignado) && !esPropietario(tareaEditadaVM.IdTablero))
+    var usuarioPropietario = tableroRepository.GetPropietarioByIdTablero(tareaEditadaVM.IdTablero);
+
+    if (!isAdmin())
     {
+      if(!isTareaAsignada(tareaEditadaVM.IdUsuarioAsignado)){
+        if(!esPropietario(usuarioPropietario)){
+
       SweetAlert("No tienes permiso para editar esta tarea", NotificationType.Error, "Oops..");
       return RedirectToAction("GetTareasByIdTablero", new { idTablero = tareaEditadaVM.IdTablero });
+        }
+      }
     }
     try
     {

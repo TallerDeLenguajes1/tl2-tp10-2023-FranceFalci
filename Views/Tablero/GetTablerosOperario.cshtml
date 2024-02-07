@@ -21,17 +21,36 @@
                 </div>
                 <div class="card-footer">
           <a class=" btn doing text-dark text-decoration-none" asp-controller="Tablero" asp-action="EditarTablero"
-            asp-route-idTablero="@tablero.IdTablero">Editar</a>
+            asp-route-idTablero="@tablero.IdTablero">Editar
+            <svg width="15" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.91321 3.02458H3.02839C2.51018 3.02458 2.01319 3.23529 1.64676 3.61036C1.28032 3.98544 1.07446 4.49414 1.07446 5.02458V16.0246C1.07446 16.555 1.28032 17.0637 1.64676 17.4388C2.01319 17.8139 2.51018 18.0246 3.02839 18.0246H13.775C14.2932 18.0246 14.7902 17.8139 15.1566 17.4388C15.5231 17.0637 15.7289 16.555 15.7289 16.0246V11.0246M14.3475 1.61058C14.5277 1.41956 14.7434 1.26719 14.9817 1.16237C15.2201 1.05756 15.4765 1.00238 15.736 1.00008C15.9954 0.997768 16.2527 1.04837 16.4928 1.14893C16.733 1.24949 16.9511 1.398 17.1346 1.58579C17.318 1.77357 17.4631 1.99688 17.5614 2.24267C17.6596 2.48846 17.709 2.75182 17.7068 3.01738C17.7045 3.28294 17.6506 3.54538 17.5482 3.78939C17.4458 4.03339 17.297 4.25408 17.1104 4.43858L8.72214 13.0246H5.95928V10.1966L14.3475 1.61058Z"
+                stroke="#5545AD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg></a>
           <a class="btn review text-dark text-decoration-none" asp-controller="Tablero" asp-action="EliminarTablero"
             asp-route-idTablero="@tablero.IdTablero"
             onclick="return confirmarEliminacion('tablero', '@tablero.Nombre', '@Url.Action("EliminarTablero", "Tablero", new { idTablero = tablero.IdTablero })'); return false;">
             Eliminar
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M19.4606 5.44444L18.4187 18.9356C18.3756 19.4962 18.1043 20.0209 17.6594 20.404C17.2146 20.787 16.6292 21 16.0213 21H6.07604C5.46815 21 4.88283 20.787 4.43798 20.404C3.99313 20.0209 3.7218 19.4962 3.67864 18.9356L2.63676 5.44444M8.64529 9.88889V16.5556M13.4521 9.88889V16.5556M14.6538 5.44444V2.11111C14.6538 1.81643 14.5272 1.53381 14.3018 1.32544C14.0765 1.11706 13.7708 1 13.4521 1H8.64529C8.32657 1 8.02092 1.11706 7.79555 1.32544C7.57019 1.53381 7.44358 1.81643 7.44358 2.11111V5.44444M1.43506 5.44444H20.6623"
+                stroke="#B04947" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+
           </a>
           
                         <a class=" btn todo text-dark text-decoration-none"
                            asp-controller="Tarea"
                            asp-action="GetTareasByIdTablero"
-                           asp-route-idTablero="@tablero.IdTablero">Ver Tareas</a>
+                           asp-route-idTablero="@tablero.IdTablero">Ver Tareas
+            <svg width="20" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M14.1818 12C14.1818 12.7956 13.8924 13.5587 13.3773 14.1213C12.8622 14.6839 12.1635 15 11.435 15C10.7066 15 10.0079 14.6839 9.4928 14.1213C8.97768 13.5587 8.68829 12.7956 8.68829 12C8.68829 11.2044 8.97768 10.4413 9.4928 9.87868C10.0079 9.31607 10.7066 9 11.435 9C12.1635 9 12.8622 9.31607 13.3773 9.87868C13.8924 10.4413 14.1818 11.2044 14.1818 12Z"
+                stroke="#326192" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M2.41559 12C3.58204 7.943 7.05302 5 11.1521 5C15.2521 5 18.7221 7.943 19.8886 12C18.7221 16.057 15.2521 19 11.1521 19C7.05302 19 3.58204 16.057 2.41559 12Z"
+                stroke="#326192" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg></a>
                 </div>
             </div>
         </div>
@@ -50,7 +69,15 @@
         <div class="card-footer">
  
           <a class=" btn todo text-dark text-decoration-none" asp-controller="Tarea" asp-action="GetTareasByIdTablero"
-            asp-route-idTablero="@tablero.IdTablero">Ver Tareas</a>
+            asp-route-idTablero="@tablero.IdTablero">Ver Tareas
+            <svg width="20" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M14.1818 12C14.1818 12.7956 13.8924 13.5587 13.3773 14.1213C12.8622 14.6839 12.1635 15 11.435 15C10.7066 15 10.0079 14.6839 9.4928 14.1213C8.97768 13.5587 8.68829 12.7956 8.68829 12C8.68829 11.2044 8.97768 10.4413 9.4928 9.87868C10.0079 9.31607 10.7066 9 11.435 9C12.1635 9 12.8622 9.31607 13.3773 9.87868C13.8924 10.4413 14.1818 11.2044 14.1818 12Z"
+                stroke="#326192" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M2.41559 12C3.58204 7.943 7.05302 5 11.1521 5C15.2521 5 18.7221 7.943 19.8886 12C18.7221 16.057 15.2521 19 11.1521 19C7.05302 19 3.58204 16.057 2.41559 12Z"
+                stroke="#326192" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg></a>
         </div>
       </div>
     </div>

@@ -1,43 +1,61 @@
 @model List<IndexUsuarioViewModel>
+<a class="btn-agregar text-dark mt-4" asp-controller="Usuario" asp-action="CrearUsuario">Agregar Usuario 
+  <svg
+    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+    class="w-2 h-2" width="25" height="25">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+  </svg>
+</a>
 
-<h2>Usuarios</h2>
+
   
 
 
-<table class="table table-dark">
-  <thead>
-    <tr>
-      <th hidden>ID</th>
-      <th>Nombre</th>
-      <th>Rol</th>
-    </tr>
-  </thead>
-  <tbody>
+    <div class="row mt-4">
+
     @foreach (var usuario in Model)
     {
-      <tr>
-        <td>@usuario.NombreUsuario</td>
-          <td>@usuario.Rol</td>
-          <td>
-            <button type="button" class="btn btn-secondary ">
-              <a class="text-white text-decoration-none" asp-controller="Usuario" asp-action="EditarUsuario"
-                asp-route-idUsuario="@usuario.Id">Editar</a>
-            </button>
+  <div class="col-md-12 mb-4">
+    <div class="tablero">
+        <div class="tablero-name d-flex justify-content-center align-items-center">
+          <svg  class="me-2 mb-1"width="22" height="29" viewBox="0 0 31 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M4.41717 23.206C7.79795 21.4269 11.6165 20.4945 15.5 20.5C19.5278 20.5 23.3091 21.4825 26.5828 23.206M20.3333 11.5C20.3333 12.6935 19.8241 13.8381 18.9177 14.682C18.0113 15.5259 16.7819 16 15.5 16C14.2181 16 12.9887 15.5259 12.0823 14.682C11.1759 13.8381 10.6667 12.6935 10.6667 11.5C10.6667 10.3065 11.1759 9.16193 12.0823 8.31802C12.9887 7.47411 14.2181 7 15.5 7C16.7819 7 18.0113 7.47411 18.9177 8.31802C19.8241 9.16193 20.3333 10.3065 20.3333 11.5ZM30 14.5C30 16.2728 29.6249 18.0283 28.8963 19.6662C28.1676 21.3041 27.0995 22.7923 25.753 24.0459C24.4066 25.2995 22.8081 26.2939 21.0489 26.9724C19.2897 27.6508 17.4042 28 15.5 28C13.5958 28 11.7103 27.6508 9.95109 26.9724C8.19187 26.2939 6.5934 25.2995 5.24695 24.0459C3.9005 22.7923 2.83244 21.3041 2.10375 19.6662C1.37505 18.0283 1 16.2728 1 14.5C1 10.9196 2.52767 7.4858 5.24695 4.95406C7.96623 2.42232 11.6544 1 15.5 1C19.3456 1 23.0338 2.42232 25.753 4.95406C28.4723 7.4858 30 10.9196 30 14.5Z"
+              stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <h5 class="card-title text-center">@usuario.NombreUsuario</h5>
+        </div>
+        <h6>@usuario.Rol</h6>
+          <div class="tablero-btn">
+              <a class=" btn-editar text-white text-decoration-none" asp-controller="Usuario" asp-action="EditarUsuario"
+                asp-route-idUsuario="@usuario.Id">Editar
+            <svg width="15" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.91321 3.02458H3.02839C2.51018 3.02458 2.01319 3.23529 1.64676 3.61036C1.28032 3.98544 1.07446 4.49414 1.07446 5.02458V16.0246C1.07446 16.555 1.28032 17.0637 1.64676 17.4388C2.01319 17.8139 2.51018 18.0246 3.02839 18.0246H13.775C14.2932 18.0246 14.7902 17.8139 15.1566 17.4388C15.5231 17.0637 15.7289 16.555 15.7289 16.0246V11.0246M14.3475 1.61058C14.5277 1.41956 14.7434 1.26719 14.9817 1.16237C15.2201 1.05756 15.4765 1.00238 15.736 1.00008C15.9954 0.997768 16.2527 1.04837 16.4928 1.14893C16.733 1.24949 16.9511 1.398 17.1346 1.58579C17.318 1.77357 17.4631 1.99688 17.5614 2.24267C17.6596 2.48846 17.709 2.75182 17.7068 3.01738C17.7045 3.28294 17.6506 3.54538 17.5482 3.78939C17.4458 4.03339 17.297 4.25408 17.1104 4.43858L8.72214 13.0246H5.95928V10.1966L14.3475 1.61058Z"
+                stroke="#5545AD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
 
-            <button type="button" class="btn btn-danger">
-              <a class="text-white text-decoration-none" asp-controller="Usuario" asp-action="EliminarUsuario"
+                </a>
+
+              <a class=" btn-eliminar text-white text-decoration-none" asp-controller="Usuario" asp-action="EliminarUsuario"
                 asp-route-idUsuario="@usuario.Id"
                 onclick="return confirmarEliminacion('usuario', '@usuario.NombreUsuario', '@Url.Action("EliminarUsuario", "Usuario", new { idUsuario = usuario.Id })'); return false;">
-              Eliminar</a>
-            </button>
-          </td>
-
-      </tr>
+              Eliminar
+            <svg width="15" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M19.4606 5.44444L18.4187 18.9356C18.3756 19.4962 18.1043 20.0209 17.6594 20.404C17.2146 20.787 16.6292 21 16.0213 21H6.07604C5.46815 21 4.88283 20.787 4.43798 20.404C3.99313 20.0209 3.7218 19.4962 3.67864 18.9356L2.63676 5.44444M8.64529 9.88889V16.5556M13.4521 9.88889V16.5556M14.6538 5.44444V2.11111C14.6538 1.81643 14.5272 1.53381 14.3018 1.32544C14.0765 1.11706 13.7708 1 13.4521 1H8.64529C8.32657 1 8.02092 1.11706 7.79555 1.32544C7.57019 1.53381 7.44358 1.81643 7.44358 2.11111V5.44444M1.43506 5.44444H20.6623"
+                stroke="#B04947" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+          </div>
+      </div>
+      </div>
     }
-  </tbody>
-</table>
+</div>
 
-  <a asp-controller="Usuario" asp-action="CrearUsuario">Agregar Usuario</a>
+  @* </tbody>
+</table> *@
+
 
 
 @section Scripts {

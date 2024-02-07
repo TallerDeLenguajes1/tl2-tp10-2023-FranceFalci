@@ -51,8 +51,9 @@ EstadoTarea.Done };
         foreach (var tarea in tareas)
         {
           var colorEstado = GetColorClass(tarea.Estado);
-          <div class="tarea" draggable="true" data-bs-toggle="modal" data-bs-target="#modal-@tarea.Id" data-id="@tarea.Id"
-            data-nombre="@tarea.Nombre" data-descripcion="@tarea.Descripcion">
+          <div class=""  data-bs-toggle="modal" data-bs-target="#modal-@tarea.Id" data-id="@tarea.Id"
+            data-nombre="@tarea.Nombre" data-descripcion="@tarea.Descripcion" data-tablero="@tarea.IdTablero"
+            data-asignado="@tarea.IdUsuarioAsignado">
             @tarea.Nombre
           </div>
 

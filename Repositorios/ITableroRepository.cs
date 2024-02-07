@@ -4,6 +4,7 @@ public interface ITableroRepository
   public void Create(Tablero tablero);
   public void Update(Tablero tablero, int idTablero);
   public Tablero GetTableroById(int idTablero);
+  public int GetPropietarioByIdTablero(int idTablero);
   public List<Tablero> GetTableros();
   public List<Tablero> GetTableroByIdUsuario(int idUsuario);
   public List<Tablero> GetTablerosOperario(int idUsuario);

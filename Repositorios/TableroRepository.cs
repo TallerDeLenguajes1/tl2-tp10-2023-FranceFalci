@@ -35,9 +35,9 @@ public class TableroRepository : ITableroRepository {
 
       connection.Open();
       SQLiteCommand command = connection.CreateCommand();
-      command.CommandText = $"UPDATE tablero SET id_usuario_propietario= @idUsuario, nombre= @nombre,descripcion=@descripcion WHERE id_tablero = @idTablero;";
+      command.CommandText = $"UPDATE tablero SET nombre= @nombre,descripcion=@descripcion WHERE id_tablero = @idTablero;";
       command.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
-      command.Parameters.Add(new SQLiteParameter("@idUsuario",tablero.IdUsuario));
+      // command.Parameters.Add(new SQLiteParameter("@idUsuario",tablero.IdUsuario));
       command.Parameters.Add(new SQLiteParameter("@nombre", tablero.Nombre));
       command.Parameters.Add(new SQLiteParameter("@descripcion", tablero.Descripcion));
 
@@ -67,6 +67,27 @@ public class TableroRepository : ITableroRepository {
 
     return (tablero);
   }
+
+  public int GetPropietarioByIdTablero(int idTablero){
+    SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
+    var usuarioPropietario = 0;
+    SQLiteCommand command = connection.CreateCommand();
+    command.CommandText = "SELECT id_usuario_propietario FROM tablero WHERE id_tablero= @idTablero";
+    command.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
+    connection.Open();
+
+    using (SQLiteDataReader reader = command.ExecuteReader())
+    {
+      while (reader.Read())
+      {
+        usuarioPropietario = Convert.ToInt32(reader["id_usuario_propietario"]);
+      }
+    }
+    connection.Close();
+
+    return (usuarioPropietario);
+  }
+
   public List<Tablero> GetTableros(){
     var queryString = @"SELECT * FROM tablero;";
     List<Tablero> tableros = new List<Tablero>();
@@ -149,7 +170,7 @@ public class TableroRepository : ITableroRepository {
     SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
     SQLiteCommand command = connection.CreateCommand();
     // command.CommandText = "SELECT t.id_tablero, t.nombre, t.descripcion, t.id_usuario_propietario FROM tablero t INNER JOIN tarea ta ON t.id_tablero = ta.id_tablero WHERE ta.id_usuario_asignado = @idUsuario UNION SELECT id_tablero, nombre, descripcion, id_usuario_propietario  FROM tablero WHERE id_usuario_propietario = @idUsuario; ";
-    command.CommandText = "SELECT t.id_tablero, t.nombre, t.descripcion, t.id_usuario_propietario FROM tablero t INNER JOIN tarea ta ON t.id_tablero = ta.id_tablero WHERE ta.id_usuario_asignado = @idUsuario; ";
+    command.CommandText = "SELECT DISTINCT(t.id_tablero), t.nombre, t.descripcion, t.id_usuario_propietario FROM tablero t INNER JOIN tarea ta ON t.id_tablero = ta.id_tablero WHERE ta.id_usuario_asignado = @idUsuario; ";
     command.Parameters.Add(new SQLiteParameter("@idUsuario", idUsuario));
     connection.Open();
     var tableros = new List<Tablero>();

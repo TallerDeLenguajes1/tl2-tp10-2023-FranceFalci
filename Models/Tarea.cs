@@ -2,7 +2,7 @@ namespace tl2_tp10_2023_FranceFalci;
 
 public class Tarea{
   int id;
-  int idUsuarioPropietario;
+  int idUsuarioAsignado;
   int idTablero;
 
   string nombre;
@@ -11,7 +11,7 @@ public class Tarea{
   EstadoTarea estado;
 
   public int Id { get => id; set => id = value; }
-  public int IdUsuarioPropietario { get => idUsuarioPropietario; set => idUsuarioPropietario = value; }
+  public int IdUsuarioAsignado { get => idUsuarioAsignado; set => idUsuarioAsignado = value; }
   public int IdTablero { get => idTablero; set => idTablero = value; }
   public string Nombre { get => nombre; set => nombre = value; }
   public string Color { get => color; set => color = value; }
@@ -24,7 +24,7 @@ public class Tarea{
     Nombre = tareaCreadaVM.Nombre;
     Descripcion = tareaCreadaVM.Descripcion;
     Estado = tareaCreadaVM.Estado;
-    IdUsuarioPropietario = tareaCreadaVM.IdUsuarioPropietario;
+    IdUsuarioAsignado = tareaCreadaVM.IdUsuarioAsignado;
    }
   public Tarea(EditarTareaViewModel tareaEditadaVM)
   {
@@ -32,7 +32,7 @@ public class Tarea{
     Nombre = tareaEditadaVM.Nombre;
     Descripcion = tareaEditadaVM.Descripcion;
     Estado = tareaEditadaVM.Estado;
-    IdUsuarioPropietario = tareaEditadaVM.IdUsuarioPropietario;
+    IdUsuarioAsignado = tareaEditadaVM.IdUsuarioAsignado;
     Id = tareaEditadaVM.Id;
   }
 

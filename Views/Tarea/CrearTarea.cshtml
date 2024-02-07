@@ -17,6 +17,16 @@
 
   </div>
   <div class="form-group">
+    <label asp-for="@Model.IdUsuarioAsignado"> Usuario asignado</label>
+    <select asp-for="@Model.IdUsuarioAsignado" class="form-control">
+      <option value="0">sin definir</option>
+      @foreach (var usuario in @Model.usuarios)
+      {
+        <option value="@usuario.Id">@usuario.NombreUsuario</option>
+      }
+    </select>
+  </div>
+  <div class="form-group">
     <label asp-for="@Model.Estado"></label>
     <select asp-for="@Model.Estado" class="form-control">
       @foreach (var estado in Enum.GetValues(typeof(EstadoTarea)))

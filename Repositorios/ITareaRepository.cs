@@ -3,6 +3,8 @@ public interface ITareaRepository
 {
   public bool Create(Tarea tarea, int idTablero);
   public void Update(Tarea tarea, int idTarea);
+  public void UpdateDrag(Tarea tarea, int idTarea);
+
   public Tarea GetTareaById(int id);
   public List<Tarea> GetTareasPorUsuario(int idUsuario);
   public List<Tarea> GetTareasPorTablero(int idTablero);

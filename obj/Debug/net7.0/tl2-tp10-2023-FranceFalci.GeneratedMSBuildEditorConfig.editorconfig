@@ -9,93 +9,93 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = tl2_tp10_2023_FranceFalci
 build_property.RootNamespace = tl2_tp10_2023_FranceFalci
-build_property.ProjectDir = c:\Users\franc\OneDrive\Escritorio\Facultad-2do-cuatrimestre\Taller2\tl2-tp10-2023-FranceFalci\
+build_property.ProjectDir = C:\Users\franc\OneDrive\Escritorio\Facultad-2do-cuatrimestre\Taller2\tl2-tp10-2023-FranceFalci\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = c:\Users\franc\OneDrive\Escritorio\Facultad-2do-cuatrimestre\Taller2\tl2-tp10-2023-FranceFalci
+build_property.MSBuildProjectDirectory = C:\Users\franc\OneDrive\Escritorio\Facultad-2do-cuatrimestre\Taller2\tl2-tp10-2023-FranceFalci
 build_property._RazorSourceGeneratorDebug = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Home/Index.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Login/Index.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Login/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Shared/Error.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Shared/_NotificationPartial.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Shared/_NotificationPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Ob3RpZmljYXRpb25QYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tablero/CrearTablero.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tablero/CrearTablero.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xDcmVhclRhYmxlcm8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tablero/EditarTablero.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tablero/EditarTablero.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xFZGl0YXJUYWJsZXJvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tablero/GetTableros.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tablero/GetTableros.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xHZXRUYWJsZXJvcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tablero/GetTablerosOperario.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tablero/GetTablerosOperario.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xHZXRUYWJsZXJvc09wZXJhcmlvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tarea/CrearTarea.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tarea/CrearTarea.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcQ3JlYXJUYXJlYS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tarea/EditarTarea.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tarea/EditarTarea.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcRWRpdGFyVGFyZWEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tarea/EditarTareaAsignada.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tarea/EditarTareaAsignada.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcRWRpdGFyVGFyZWFBc2lnbmFkYS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tarea/GetTareas.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tarea/GetTareas.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcR2V0VGFyZWFzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tarea/GetTareasByIdTablero.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tarea/GetTareasByIdTablero.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcR2V0VGFyZWFzQnlJZFRhYmxlcm8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tarea/GetTareasOperario.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Tarea/GetTareasOperario.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcR2V0VGFyZWFzT3BlcmFyaW8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Usuario/CrearUsuario.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Usuario/CrearUsuario.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xDcmVhclVzdWFyaW8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Usuario/EditarUsuario.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Usuario/EditarUsuario.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xFZGl0YXJVc3VhcmlvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Usuario/GetUsuarios.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Usuario/GetUsuarios.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xHZXRVc3Vhcmlvcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/_ViewImports.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/_ViewStart.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Shared/_Layout.cshtml]
+[C:/Users/franc/OneDrive/Escritorio/Facultad-2do-cuatrimestre/Taller2/tl2-tp10-2023-FranceFalci/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-3sj3zxl149

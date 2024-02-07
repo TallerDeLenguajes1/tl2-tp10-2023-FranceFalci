@@ -4,7 +4,7 @@ public class EditarTareaViewModel
 {
   public List<Usuario> usuarios;
   public int Id { get; set; }
-  public int IdUsuarioPropietario { get; set; }
+  public int IdUsuarioAsignado { get; set; }
   public int IdTablero { get; set; }
 
   [Required(ErrorMessage = "Este campo es requerido")]
@@ -18,7 +18,7 @@ public class EditarTareaViewModel
   {
     this.usuarios = usuarios;
     IdTablero =tarea.IdTablero;
-    IdUsuarioPropietario = tarea.IdUsuarioPropietario;
+    IdUsuarioAsignado = tarea.IdUsuarioAsignado;
     Id = tarea.Id;
     Nombre = tarea.Nombre;
     Estado = tarea.Estado;

@@ -3,9 +3,7 @@
 @{
   // Obtén el valor del parámetro de consulta llamado "idTablero"
   var idTablero = Context.Request.Query["idTablero"];
-  <script>
-    alor de idTablero:", @idTablero);
-  </script>
+
 
   // Verifica si el valor existe antes de usarlo
   if (!String.IsNullOrEmpty(idTablero))
@@ -52,8 +50,11 @@ EstadoTarea.Done };
         foreach (var tarea in tareas)
         {
           var colorEstado = GetColorClass(tarea.Estado);
+          <h1>@tarea.IdUsuarioAsignado</h1>
+          <h1>@tarea.IdTablero</h1>
+
           <div class="tarea" draggable="true" data-bs-toggle="modal" data-bs-target="#modal-@tarea.Id" data-id="@tarea.Id"
-            data-nombre="@tarea.Nombre" data-descripcion="@tarea.Descripcion">
+            data-nombre="@tarea.Nombre" data-descripcion="@tarea.Descripcion" data-tablero="@tarea.IdTablero" data-asignado="@tarea.IdUsuarioAsignado">
             @tarea.Nombre
           </div>
 

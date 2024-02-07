@@ -1,8 +1,8 @@
 const draggables = document.querySelectorAll(".tarea");
 const droppables = document.querySelectorAll(".contenedor-tareas");
 let estadoTemporal;
-const cambiarEstadoTarea = async (id,nombre,descripcion,estado) => {
-  console.log(id, nombre, descripcion, estado)
+const cambiarEstadoTarea = async (id,nombre,descripcion,estado, idTablero , asignado) => {
+  console.log(id, nombre, descripcion, estado,  idTablero)
   estadoAInt = convertirEstado(estado);
   try {
     const response = await fetch('/Tarea/EditarTareaFromBody', {
@@ -12,9 +12,11 @@ const cambiarEstadoTarea = async (id,nombre,descripcion,estado) => {
       },
       // Puedes enviar datos en el cuerpo de la solicitud si es necesario
       body: JSON.stringify({
-          Id: id,
-          Nombre: nombre,
-          Descripcion: descripcion,
+        IdUsuarioAsignado: asignado,
+        IdTablero: idTablero,
+        Id: id,
+        Nombre: nombre,
+        Descripcion: descripcion,
         Estado: estadoAInt
         }
       ),
@@ -46,19 +48,38 @@ const cambiarEstadoTarea = async (id,nombre,descripcion,estado) => {
     }
   };
 
+// draggables.forEach((tarea) => {
+//   const { id, nombre, descripcion, estado, idTablero } = tarea.dataset;
+
+//   tarea.addEventListener("dragstart", (e) => {
+//     // Guarda la información en el objeto de datos de la transferencia para que esté disponible en dragend
+//     e.dataTransfer.setData("text/plain", JSON.stringify({ id, nombre, descripcion, estado, idTablero }));
+
+//     tarea.classList.add("is-dragging");
+//   });
+
+//   tarea.addEventListener("dragend", () => {
+//     tarea.classList.remove("is-dragging");
+//     // Recupera la información desde la transferencia de datos
+//     const data = JSON.parse(e.dataTransfer.getData("text/plain"));
+//     cambiarEstadoTarea(data.id, data.nombre, data.descripcion, estadoTemporal, data.idTablero);
+//     // location.reload();
+//   });
+// });
+
 
 draggables.forEach((tarea) => {
-  const { id, nombre, descripcion ,estado} = tarea.dataset;
+  const { id, nombre, descripcion ,estado  , tablero, asignado} = tarea.dataset;
 
   tarea.addEventListener("dragstart", () => {
+    // console.log( tablero , asignado)
+
     tarea.classList.add("is-dragging");
   });
   tarea.addEventListener("dragend", () => {
     tarea.classList.remove("is-dragging");
-    console.log("ejecutando");
-    cambiarEstadoTarea(id,nombre,descripcion,estadoTemporal);
-    // location.reload();
-
+    cambiarEstadoTarea(id, nombre, descripcion, estadoTemporal, tablero , asignado);
+  
 
   });
 });

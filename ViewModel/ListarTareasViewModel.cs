@@ -15,7 +15,7 @@ public class ListarTareasViewModel
         Nombre = tarea.Nombre,
         Descripcion = tarea.Descripcion,
         Estado = tarea.Estado,
-        IdUsuarioPropietario  = tarea.IdUsuarioPropietario,
+        IdUsuarioAsignado = tarea.IdUsuarioAsignado,
         IdTablero = tarea.IdTablero,
       });
     }

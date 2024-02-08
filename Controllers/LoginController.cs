@@ -35,17 +35,17 @@ public class LoginController : BaseController
     return RedirectToRoute(new { controller = "Home", action = "Index" });
   }
 
-  [HttpPost]
-  public IActionResult Logout()
-  {
-    // Cerrar la sesión y eliminar los datos de la sesión
-    HttpContext.Session.Clear(); // Clear all keys
-    HttpContext.Session.Remove("Usuario"); // Remove specific key
-    HttpContext.Session.Remove("NivelAcceso"); 
-    HttpContext.Session.Remove("ID");
-    // Redirigir a la página de inicio de sesión o a donde desees después de cerrar sesión
-    return RedirectToAction("Index", "Home");
-  }
+  // [HttpPost]
+  // public IActionResult Logout()
+  // {
+  //   // Cerrar la sesión y eliminar los datos de la sesión
+  //   HttpContext.Session.Clear(); // Clear all keys
+  //   HttpContext.Session.Remove("Usuario"); // Remove specific key
+  //   HttpContext.Session.Remove("NivelAcceso"); 
+  //   HttpContext.Session.Remove("ID");
+  //   // Redirigir a la página de inicio de sesión o a donde desees después de cerrar sesión
+  //   return RedirectToAction("Index", "Home");
+  // }
   private void logearUsuario(Usuario usuario)
   {
     // Debug.WriteLine($"Usuario: {usuario.NombreUsuario}");

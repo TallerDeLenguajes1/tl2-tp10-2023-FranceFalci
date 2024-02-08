@@ -28,11 +28,22 @@ public class UsuarioController : BaseController
       return RedirectToRoute(new { controller = "Login", action = "Index" });
     }
 
-    if (!isAdmin()) return RedirectToRoute(new { controller = "Home", action = "Error" });
+    if (!isAdmin()){
+      // SweetAlert("Error al ver usuarios. No tienes permiso!", NotificationType.Error, "Oops..");
+      return RedirectToRoute(new { controller = "Home", action = "Error" });
+
+    } 
+    try{
 
     var usuarios = usuarioRepository.GetAll();
     return View(new ListarUsuariosViewModel().GetIndexUsuariosViewModel(usuarios));
-    
+
+    }catch(Exception ex){
+      logger.LogError(ex.ToString());
+      return RedirectToRoute(new { controller = "Home", action = "Error" });
+
+    }
+
 
   }
   [HttpGet]
@@ -121,7 +132,6 @@ public class UsuarioController : BaseController
 
   }
 
-  // ! [HttpDelete] porq?? 
   public IActionResult EliminarUsuario(int idUsuario)
   {
     if (!isAdmin()) return RedirectToRoute(new { controller = "Home", action = "Error" });

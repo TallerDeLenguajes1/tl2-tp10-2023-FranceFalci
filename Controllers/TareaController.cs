@@ -30,24 +30,32 @@ public class TareaController : BaseController
   {
     
     if (!isLogueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+
     var usuarioPropietario = tableroRepository.GetPropietarioByIdTablero(idTablero);
     if(!esPropietario(usuarioPropietario) &&  !isAdmin()) {
+      try{
+
       var tareas = tareaRepository.GetTareasPorTablero(idTablero);
       var usuarios = usuarioRepository.GetAll();
       var viewModel = new ListarTareasViewModel().GetIndexTareaViewModel(tareas,usuarios);
-
-
       return View("GetTareasOperario", viewModel);
-      // return View(new ListarTareasViewModel().GetIndexTareaViewModel(tareas));
-    }
-    try
-    {
-    var tareas = tareaRepository.GetTareasPorTablero(idTablero);
-    var usuarios = usuarioRepository.GetAll();
-      return View( new ListarTareasViewModel().GetIndexTareaViewModel(tareas,usuarios));
-    }catch{
-      return RedirectToRoute(new { controller = "Home", action = "Error" });
 
+      }catch(Exception ex){
+
+        logger.LogError(ex.ToString());
+        return RedirectToRoute(new { controller = "Home", action = "Error" });
+
+      }
+    }
+
+    try{
+      var tareas = tareaRepository.GetTareasPorTablero(idTablero);
+      var usuarios = usuarioRepository.GetAll();
+      return View( new ListarTareasViewModel().GetIndexTareaViewModel(tareas,usuarios));
+
+    }catch(Exception ex){
+      logger.LogError(ex.ToString());
+      return RedirectToRoute(new { controller = "Home", action = "Error" });
     }
   }
 
@@ -56,8 +64,16 @@ public class TareaController : BaseController
   public IActionResult CrearTarea(int idTablero)
   {
     if (!isLogueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-    var usuarios = usuarioRepository.GetAll();
-    return View(new CrearTareaViewModel(idTablero,usuarios));
+    try{
+
+      var usuarios = usuarioRepository.GetAll();
+      return View(new CrearTareaViewModel(idTablero,usuarios));
+
+    }catch (Exception ex){
+
+      logger.LogError(ex.ToString());
+      return RedirectToRoute(new { controller = "Home", action = "Error" });
+    }
   }
 
   [HttpPost]
@@ -67,9 +83,8 @@ public class TareaController : BaseController
       SweetAlert("Error al crear tarea. Debes estar logueado!", NotificationType.Error, "Oops..");
       return RedirectToRoute(new { controller = "Login", action = "Index" });
     } 
-    if (!ModelState.IsValid) {
-    return RedirectToAction("CrearTarea");
-    }
+    if (!ModelState.IsValid) return RedirectToAction("CrearTarea");
+    
     
     var tarea = new Tarea(tareaCreadaVM);
     try{
@@ -83,7 +98,6 @@ public class TareaController : BaseController
       return RedirectToRoute(new { controller = "Home", action = "Error" });
 
     }
-    // return RedirectToAction("CrearTarea", new { idTablero = tarea.IdTablero });
 
     return RedirectToAction("GetTareasByIdTablero", new { idTablero = tarea.IdTablero });
   }
@@ -95,17 +109,11 @@ public class TareaController : BaseController
   {
     if (!isLogueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
 
-      try
-      {
+    try{
 
       var tareaBuscada = tareaRepository.GetTareaById(idTarea);
       var usuarios =  usuarioRepository.GetAll();
       var vm = new EditarTareaViewModel(tareaBuscada, usuarios);
-      // if (!esPropietario(idTablero) && !isAdmin())
-      // {
-      //   return View("EditarTareaAsignada", vm);
-
-      // }
       return View(vm);
 
     }catch(Exception ex){
@@ -123,7 +131,7 @@ public class TareaController : BaseController
       SweetAlert("Error al editar tarea. Debes estar logueado!", NotificationType.Error, "Oops..");
       return RedirectToRoute(new { controller = "Login", action = "Index" });
     }
-    // if(!isAdmin() ) return RedirectToRoute(new { controller = "Home", action = "Error" });
+
     if (!ModelState.IsValid) return RedirectToAction("EditarTarea");
 
     try{
@@ -176,25 +184,19 @@ public class TareaController : BaseController
       SweetAlert("Error al mover tarea. Debes estar logueado!", NotificationType.Error, "Oops..");
       return RedirectToRoute(new { controller = "Login", action = "Index" });
     }
-    // SweetAlert("No tienes permiso para editar esta tarea", NotificationType.Error, "Oops..");
 
 
     if (!ModelState.IsValid) return RedirectToAction("EditarTarea");
-    // if (!isAdmin() && !isTareaAsignada(tareaEditadaVM.IdUsuarioAsignado) && !esPropietario(tareaEditadaVM.IdTablero))
     var usuarioPropietario = tableroRepository.GetPropietarioByIdTablero(tareaEditadaVM.IdTablero);
 
-    if (!isAdmin())
+    if (!isAdmin() && !isTareaAsignada(tareaEditadaVM.IdUsuarioAsignado) && !esPropietario(usuarioPropietario))
     {
-      if(!isTareaAsignada(tareaEditadaVM.IdUsuarioAsignado)){
-        if(!esPropietario(usuarioPropietario)){
-
       SweetAlert("No tienes permiso para editar esta tarea", NotificationType.Error, "Oops..");
       return RedirectToAction("GetTareasByIdTablero", new { idTablero = tareaEditadaVM.IdTablero });
-        }
-      }
     }
-    try
-    {
+
+    try{
+      
       var tareaAModificar = new Tarea(tareaEditadaVM);
 
       tareaRepository.Update(tareaAModificar, tareaAModificar.Id);
@@ -202,6 +204,7 @@ public class TareaController : BaseController
       return RedirectToAction("GetTareasByIdTablero", new { idTablero = tareaAModificar.IdTablero });
 
     }catch (Exception ex){
+      
       SweetAlert("Error al mover tarea", NotificationType.Error, "Oops..");
       logger.LogError(ex.ToString());
       return RedirectToAction("GetTareasByIdTablero", new { idTablero = tareaEditadaVM.IdTablero });

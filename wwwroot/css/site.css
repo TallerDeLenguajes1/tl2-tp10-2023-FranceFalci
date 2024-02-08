@@ -15,6 +15,10 @@ html {
   font-size: 14px;
 }
 
+header{
+  width: 100vw;
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -37,9 +41,41 @@ body {
   margin-bottom: 60px;
   background-color: #F5F5F5;
 }
+.swal2-popup {
+  color:#333 ;
+  background-color: #fff;
+  border-radius: 2rem;
+  width: 400px !important;
+  /* padding: 0 !important; */
+}
 
+.swal2-confirm {
+  font-size: 1.2rem !important;
+  background-color: var(--todo) !important;
+  color:var(--todo_dark) !important;
+  border: none !important;
+  border: 0px solid transparent !important;
+  outline: none !important;
+  border-radius: 2rem !important;
+  padding: .1rem 1rem !important;
+  box-shadow: none !important;
+}
+
+
+.swal2-cancel {
+  background-color: var(--review) !important;
+  color: var(--review_dark) !important;
+    border-radius: 2rem !important;
+      padding: .2rem 1rem !important;
+        font-size: 1.1rem !important;
+}
+
+.swal2-content a {
+  color: #b6ff1b !important;
+}
 .navbar {
     background-image: linear-gradient(to right, #d2cbf981, #cae4ff6b ,#fbc6c588,#fae8cb6e);
+    /* background-color: #d2cbf97a !important; */
 }
 
 .error-text{
@@ -224,6 +260,9 @@ background-color: var(--review) ;
   color: var(--ideas_dark) !important;
 }
 
+.dark{
+  color: var(--todo_dark);
+}
 .todo-dark {
 
 color: var(--todo_dark);
@@ -305,7 +344,9 @@ color: var(--done_dark);
   border: 2px solid rgba(0, 0, 0, 0.719);
 
 }
-
+.text-principal{
+  font-size: 3rem;
+}
 .card {
   /* background-color: #D0F0C0 !important;*/
   /* background-color: #F5F5F5 !important; */

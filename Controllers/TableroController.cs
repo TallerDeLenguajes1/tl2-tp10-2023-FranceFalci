@@ -26,21 +26,28 @@ public class TableroController : BaseController
   {
     if (!isLogueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
     
+    try{
+
       int idUsuario = HttpContext.Session.GetInt32("ID") ?? -1;
-    var tablerosPropios = tableroRepository.GetTableroByIdUsuario(idUsuario);
+      var tablerosPropios = tableroRepository.GetTableroByIdUsuario(idUsuario);
+
     if(isAdmin()){
+
       var tablerosGeneral = tableroRepository.GetTableros();
-      // return View(tablerosGeneral);
       var tablerosAjenos = tableroRepository.GetTablerosAjenos(idUsuario);
       return View(new ListarTablerosViewModel(tablerosPropios, tablerosAjenos));
+
     }
 
     if(isOperador()){
 
-      // var tableros = tableroRepository.GetTablerosOperario(idUsuario);
       var tablerosAjenos = tableroRepository.GetTablerosOperario(idUsuario);
       var viewModel = new ListarTablerosViewModel(tablerosPropios, tablerosAjenos);
       return View("GetTablerosOperario", viewModel);
+    }
+    }catch(Exception ex){
+      logger.LogError(ex.ToString());
+      return RedirectToRoute(new { controller = "Home", action = "Error" });
     }
 
     return RedirectToRoute(new { controller = "Login", action = "Index" });
@@ -103,9 +110,9 @@ public class TableroController : BaseController
     if (!ModelState.IsValid) return RedirectToAction("EditarTablero", new { idTablero = tableroEditadoVM.IdTablero });
 
     try{
-    var tableroAModificar = new Tablero(tableroEditadoVM);
-    tableroRepository.Update(tableroAModificar, tableroAModificar.IdTablero);
-    SweetAlert("Tablero editado con éxito.", NotificationType.Success, "Genial!");
+      var tableroAModificar = new Tablero(tableroEditadoVM);
+      tableroRepository.Update(tableroAModificar, tableroAModificar.IdTablero);
+      SweetAlert("Tablero editado con éxito.", NotificationType.Success, "Genial!");
 
     }
     catch (Exception ex)
@@ -120,9 +127,10 @@ public class TableroController : BaseController
   public IActionResult EliminarTablero(int idTablero)
   {
     if (!isLogueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+
     try{
-     tableroRepository.RemoveTablero(idTablero);
-    SweetAlert("Tablero eliminado con éxito.", NotificationType.Success, "Genial!");
+      tableroRepository.RemoveTablero(idTablero);
+      SweetAlert("Tablero eliminado con éxito.", NotificationType.Success, "Genial!");
 
     }
     catch (Exception ex){
